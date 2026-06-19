@@ -5,114 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELIF Perfumes | Fine Fragrances</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="ALIF Perfumes - Discover curated luxury, niche, and everyday fragrances. Find your signature scent with our personalized fragrance quiz. Shop woody, floral, oriental, and fresh perfumes.">
-    <meta name="keywords" content="perfumes, fragrances, luxury perfumes, niche fragrances, buy perfumes online, oud perfume, rose perfume, citrus fragrance, oriental perfume, woody scent, ALIF Perfumes">
-    <meta name="author" content="ALIF Perfumes">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="7 days">
-
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alifperfumes.com">
-    <meta property="og:title" content="ALIF Perfumes | Fine Fragrances & Luxury Scents">
-    <meta property="og:description" content="Discover curated luxury, niche, and everyday fragrances. Find your signature scent with our personalized fragrance quiz.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&h=630&fit=crop">
-    <meta property="og:site_name" content="ELIF Perfumes">
-    <meta property="og:locale" content="en_US">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://alifperfumes.com">
-    <meta name="twitter:title" content="ALIF Perfumes | Fine Fragrances & Luxury Scents">
-    <meta name="twitter:description" content="Discover curated luxury, niche, and everyday fragrances. Find your signature scent with our personalized fragrance quiz.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&h=630&fit=crop">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://alifperfumes.com">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
-
-    <!-- Structured Data / Schema.org -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "ELIF Perfumes",
-      "url": "https://alifperfumes.com",
-      "description": "Curated luxury, niche, and everyday fragrances from the world's finest perfumeries.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://alifperfumes.com/?search={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Store",
-      "name": "ELIF Perfumes",
-      "image": "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&h=630&fit=crop",
-      "description": "Online perfume store offering luxury, niche, and everyday fragrances.",
-      "url": "https://alifperfumes.com",
-      "telephone": "+1-800-ALIF-PERF",
-      "priceRange": "$$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "US"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "00:00",
-        "closes": "23:59"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "Product",
-            "name": "Midnight Oud",
-            "description": "A deep, mysterious fragrance with rich oud wood, warm amber and creamy vanilla.",
-            "brand": {"@type": "Brand", "name": "Maison Noir"},
-            "offers": {
-              "@type": "Offer",
-              "price": "285.00",
-              "priceCurrency": "USD",
-              "availability": "https://schema.org/InStock"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "Product",
-            "name": "Rose Eternelle",
-            "description": "An exquisite floral composition with Turkish rose absolute and delicate jasmine.",
-            "brand": {"@type": "Brand", "name": "Chateau Parfum"},
-            "offers": {
-              "@type": "Offer",
-              "price": "195.00",
-              "priceCurrency": "USD",
-              "availability": "https://schema.org/InStock"
-            }
-          }
-        }
-      ]
-    }
-    </script>
     <style>
         :root {
             --primary: #1a1a1a;
@@ -124,42 +16,47 @@
             --text-light: #666;
             --border: #e8e4de;
             --success: #2d6a4f;
+            --danger: #c44;
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--light); line-height: 1.6; }
         h1, h2, h3, h4, .brand { font-family: 'Playfair Display', serif; }
+
+        /* ===== NAVIGATION ===== */
         nav { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border); transition: all 0.3s ease; }
         nav.scrolled { box-shadow: var(--shadow); }
         .nav-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-size: 1.8rem; font-weight: 600; letter-spacing: 3px; color: var(--primary); }
-        .brand span { color: var(--secondary); }
+        .brand { font-size: 1.8rem; font-weight: 600; letter-spacing: 3px; color: var(--primary); cursor: pointer; }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { color: var(--secondary); }
         .nav-actions { display: flex; gap: 1.5rem; align-items: center; }
         .nav-actions button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--primary); position: relative; transition: color 0.3s; }
         .nav-actions button:hover { color: var(--secondary); }
         .cart-count { position: absolute; top: -8px; right: -8px; background: var(--secondary); color: white; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
         .mobile-menu-btn { display: none; font-size: 1.5rem; background: none; border: none; cursor: pointer; }
+
+        /* ===== HERO ===== */
         .hero { height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, #2a2a2a 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
         .hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        .hero-content { text-align: center; color: white; z-index: 2; max-width: 800px; padding: 0 2rem; }
-        .hero-content h1 { font-size: 4rem; font-weight: 400; margin-bottom: 1rem; letter-spacing: 2px; animation: fadeInUp 1s ease; }
-        .hero-content p { font-size: 1.2rem; font-weight: 300; margin-bottom: 2.5rem; opacity: 0.8; animation: fadeInUp 1s ease 0.2s both; }
-        .hero-btn { display: inline-block; padding: 1rem 3rem; background: var(--secondary); color: white; text-decoration: none; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; border: 2px solid var(--secondary); animation: fadeInUp 1s ease 0.4s both; }
+        .hero-content { text-align: center; color: white; z-index: 2; max-width: 800px; padding: 0 2rem; position: relative; }
+        .hero-content h1 { font-size: 4rem; font-weight: 400; margin-bottom: 1rem; letter-spacing: 2px; }
+        .hero-content p { font-size: 1.2rem; font-weight: 300; margin-bottom: 2.5rem; opacity: 0.8; }
+        .hero-btn { display: inline-block; padding: 1rem 3rem; background: var(--secondary); color: white; text-decoration: none; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; border: 2px solid var(--secondary); cursor: pointer; border: none; font-family: 'Inter', sans-serif; font-size: 1rem; }
         .hero-btn:hover { background: transparent; color: var(--secondary); }
         .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: white; opacity: 0.5; animation: bounce 2s infinite; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
+
+        /* ===== SECTIONS ===== */
         section { padding: 5rem 2rem; max-width: 1400px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 3rem; }
         .section-header h2 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); }
         .section-header p { color: var(--text-light); font-size: 1rem; }
         .divider { width: 60px; height: 3px; background: var(--secondary); margin: 1rem auto; }
+
+        /* ===== CATEGORIES ===== */
         .categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
         .category-card { position: relative; height: 280px; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
         .category-card:hover { transform: translateY(-5px); }
@@ -168,6 +65,8 @@
         .category-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white; }
         .category-overlay h3 { font-size: 1.5rem; margin-bottom: 0.3rem; }
         .category-overlay span { font-size: 0.85rem; opacity: 0.8; }
+
+        /* ===== FILTERS ===== */
         .filter-section { background: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: var(--shadow); }
         .filter-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
         .filter-group { flex: 1; min-width: 200px; }
@@ -179,8 +78,10 @@
         .search-box input { width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; font-family: 'Inter', sans-serif; transition: border-color 0.3s; }
         .search-box input:focus { outline: none; border-color: var(--secondary); }
         .search-box::before { content: '🔍'; position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); opacity: 0.5; }
+
+        /* ===== PRODUCTS ===== */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative; }
         .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
         .product-image { position: relative; height: 320px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; }
         .product-image img { width: 60%; height: auto; transition: transform 0.5s; }
@@ -204,6 +105,8 @@
         .product-price .original { font-size: 0.9rem; text-decoration: line-through; color: var(--text-light); margin-left: 0.5rem; font-weight: 400; }
         .add-to-cart { padding: 0.6rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.3s; font-family: 'Inter', sans-serif; }
         .add-to-cart:hover { background: var(--secondary); }
+
+        /* ===== MODALS ===== */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 2rem; backdrop-filter: blur(5px); }
         .modal-overlay.active { display: flex; }
         .modal { background: white; border-radius: 16px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalIn 0.3s ease; }
@@ -214,7 +117,6 @@
         .modal-image { background: var(--accent); display: flex; align-items: center; justify-content: center; padding: 3rem; min-height: 500px; }
         .modal-image img { max-width: 70%; height: auto; }
         .modal-details { padding: 3rem; }
-        .modal-details .product-category { margin-bottom: 1rem; }
         .modal-details h2 { font-size: 2rem; margin-bottom: 0.5rem; }
         .modal-details .brand { font-size: 1.1rem; color: var(--text-light); margin-bottom: 1.5rem; }
         .modal-price { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; }
@@ -232,6 +134,8 @@
         .size-option:hover, .size-option.active { border-color: var(--secondary); background: var(--secondary); color: white; }
         .modal-add-cart { width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 1rem; text-transform: uppercase; letter-spacing: 2px; }
         .modal-add-cart:hover { background: var(--secondary); }
+
+        /* ===== CART ===== */
         .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; }
         .cart-overlay.active { display: block; }
         .cart-sidebar { position: fixed; right: 0; top: 0; height: 100vh; width: 100%; max-width: 450px; background: white; z-index: 2001; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
@@ -259,39 +163,16 @@
         .checkout-btn { width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 2px; }
         .checkout-btn:hover { background: var(--secondary); }
         .checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .recommendation-section { background: var(--accent); padding: 4rem 2rem; }
-        .recommendation-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .recommendation-container h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .recommendation-container p { color: var(--text-light); margin-bottom: 2rem; }
-        .quiz-container { background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); text-align: left; }
-        .quiz-step { display: none; }
-        .quiz-step.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .quiz-step h3 { margin-bottom: 1.5rem; font-size: 1.2rem; }
-        .quiz-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .quiz-option { padding: 1.5rem; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; }
-        .quiz-option:hover { border-color: var(--secondary); background: var(--accent); }
-        .quiz-option.selected { border-color: var(--secondary); background: var(--secondary); color: white; }
-        .quiz-option .emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
-        .quiz-option .label { font-weight: 600; }
-        .quiz-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
-        .quiz-btn { padding: 0.8rem 2rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
-        .quiz-btn-prev { background: var(--light); color: var(--text); }
-        .quiz-btn-next { background: var(--primary); color: white; }
-        .quiz-btn-next:hover { background: var(--secondary); }
-        .quiz-results { display: none; }
-        .quiz-results.active { display: block; }
-        .recommendation-card { background: var(--accent); padding: 2rem; border-radius: 12px; margin-top: 1.5rem; }
-        .recommendation-card h4 { margin-bottom: 1rem; }
-        .recommended-products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+
+        /* ===== CHECKOUT ===== */
         .checkout-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3000; align-items: center; justify-content: center; padding: 2rem; }
         .checkout-modal.active { display: flex; }
         .checkout-form { background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2rem; }
         .checkout-form h2 { margin-bottom: 1.5rem; text-align: center; }
         .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
-        .form-group input, .form-group select { width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; transition: border-color 0.3s; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--secondary); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary); }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .payment-methods { display: flex; gap: 1rem; margin-bottom: 1rem; }
         .payment-method { flex: 1; padding: 1rem; border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s; }
@@ -302,8 +183,12 @@
         .summary-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
         .place-order-btn { width: 100%; padding: 1rem; background: var(--success); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
         .place-order-btn:hover { opacity: 0.9; }
+
+        /* ===== TOAST ===== */
         .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 8px; box-shadow: var(--shadow-lg); z-index: 4000; transform: translateY(100px); opacity: 0; transition: all 0.3s ease; }
         .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* ===== FOOTER ===== */
         footer { background: var(--dark); color: white; padding: 4rem 2rem 2rem; }
         .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; }
         .footer-section h4 { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--secondary); }
@@ -313,846 +198,10 @@
         .footer-section ul li a:hover { color: var(--secondary); }
         .footer-section p { color: rgba(255,255,255,0.7); line-height: 1.8; }
         .footer-bottom { max-width: 1400px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
-        @media (max-width: 1024px) { .categories { grid-template-columns: repeat(2, 1fr); } .modal-content { grid-template-columns: 1fr; } .modal-image { min-height: 300px; } .footer-content { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .hero-content h1 { font-size: 2.5rem; } .categories { grid-template-columns: 1fr; } .filter-row { flex-direction: column; } .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } .quiz-options { grid-template-columns: 1fr; } .recommended-products { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; gap: 2rem; } .form-row { grid-template-columns: 1fr; } section { padding: 3rem 1rem; } }
-        @media (max-width: 480px) { .products-grid { grid-template-columns: 1fr; } .hero-content h1 { font-size: 2rem; } }
-    </style>
 
-    <!-- Google Analytics (Replace GA_MEASUREMENT_ID with your actual ID) -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
-    -->
-</head>
-<body>
-    <!-- Navigation -->
-    <nav id="navbar" aria-label="Main navigation">
-        <div class="nav-container">
-            <div class="brand">ELIF</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#collection">Collection</a></li>
-                <li><a href="#recommendation">Find Your Scent</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></button>
-                <button id="userBtn" onclick="toggleUserMenu()">👤</button>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Discover Your Signature Scent</h1>
-            <p>Curated luxury, niche, and everyday fragrances from the world's finest perfumeries</p>
-            <a href="#collection" class="hero-btn">Explore Collection</a>
-        </div>
-        <div class="scroll-indicator">↓</div>
-    </section>
-
-    <!-- Categories -->
-    <section id="categories">
-        <div class="section-header">
-            <h2>Fragrance Families</h2>
-            <div class="divider"></div>
-            <p>Explore scents by their olfactory character</p>
-        </div>
-        <div class="categories">
-            <div class="category-card" onclick="filterByCategory('floral')">
-                <img src="https://images.unsplash.com/photo-1490750967868-88aa44234ad5?w=400&h=400&fit=crop" alt="Floral fragrance category - roses, jasmine, and lily perfumes">
-                <div class="category-overlay">
-                    <h3>Floral</h3>
-                    <span>Roses, Jasmine, Lilies</span>
-                </div>
-            </div>
-            <div class="category-card" onclick="filterByCategory('woody')">
-                <img src="https://images.unsplash.com/photo-1515446134809-993c501ca304?w=400&h=400&fit=crop" alt="Woody fragrance category - sandalwood, cedar, and oud perfumes">
-                <div class="category-overlay">
-                    <h3>Woody</h3>
-                    <span>Sandalwood, Cedar, Oud</span>
-                </div>
-            </div>
-            <div class="category-card" onclick="filterByCategory('oriental')">
-                <img src="https://images.unsplash.com/photo-1594035900144-17e9e019e8f9?w=400&h=400&fit=crop" alt="Oriental fragrance category - vanilla, amber, and spice perfumes">
-                <div class="category-overlay">
-                    <h3>Oriental</h3>
-                    <span>Vanilla, Amber, Spices</span>
-                </div>
-            </div>
-            <div class="category-card" onclick="filterByCategory('fresh')">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Fresh fragrance category - citrus, aquatic, and green perfumes">
-                <div class="category-overlay">
-                    <h3>Fresh</h3>
-                    <span>Citrus, Aquatic, Green</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="collection">
-        <div class="section-header">
-            <h2>Our Collection</h2>
-            <div class="divider"></div>
-            <p>Handpicked fragrances for every occasion</p>
-        </div>
-
-        <div class="filter-section">
-            <div class="filter-row">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search fragrances..." oninput="filterProducts()">
-                </div>
-                <div class="filter-group">
-                    <label>Category</label>
-                    <div class="filter-options" id="categoryFilters">
-                        <button class="filter-chip active" onclick="setCategoryFilter('all')">All</button>
-                        <button class="filter-chip" onclick="setCategoryFilter('floral')">Floral</button>
-                        <button class="filter-chip" onclick="setCategoryFilter('woody')">Woody</button>
-                        <button class="filter-chip" onclick="setCategoryFilter('oriental')">Oriental</button>
-                        <button class="filter-chip" onclick="setCategoryFilter('fresh')">Fresh</button>
-                    </div>
-                </div>
-                <div class="filter-group">
-                    <label>Scent Notes</label>
-                    <div class="filter-options" id="noteFilters">
-                        <button class="filter-chip" onclick="toggleNoteFilter('rose')">Rose</button>
-                        <button class="filter-chip" onclick="toggleNoteFilter('vanilla')">Vanilla</button>
-                        <button class="filter-chip" onclick="toggleNoteFilter('oud')">Oud</button>
-                        <button class="filter-chip" onclick="toggleNoteFilter('bergamot')">Bergamot</button>
-                        <button class="filter-chip" onclick="toggleNoteFilter('jasmine')">Jasmine</button>
-                        <button class="filter-chip" onclick="toggleNoteFilter('sandalwood')">Sandalwood</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-grid" id="productsGrid"></div>
-    </section>
-
-    <!-- Recommendation Section -->
-    <section class="recommendation-section" id="recommendation">
-        <div class="recommendation-container">
-            <h2>Find Your Perfect Fragrance</h2>
-            <p>Answer a few questions and we will recommend scents tailored to your preferences</p>
-            <div class="quiz-container">
-                <div class="quiz-step active" data-step="1">
-                    <h3>What type of scents do you usually prefer?</h3>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'floral')">
-                            <span class="emoji">🌸</span>
-                            <span class="label">Soft & Romantic</span>
-                            <small>Floral, powdery, delicate</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'woody')">
-                            <span class="emoji">🌲</span>
-                            <span class="label">Warm & Earthy</span>
-                            <small>Woody, spicy, rich</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'fresh')">
-                            <span class="emoji">🍋</span>
-                            <span class="label">Clean & Energizing</span>
-                            <small>Citrus, aquatic, green</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'oriental')">
-                            <span class="emoji">🌙</span>
-                            <span class="label">Exotic & Sensual</span>
-                            <small>Amber, vanilla, musk</small>
-                        </div>
-                    </div>
-                    <div class="quiz-nav">
-                        <span></span>
-                        <button class="quiz-btn quiz-btn-next" onclick="nextQuizStep()">Next →</button>
-                    </div>
-                </div>
-                <div class="quiz-step" data-step="2">
-                    <h3>When do you usually wear fragrance?</h3>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'day')">
-                            <span class="emoji">☀️</span>
-                            <span class="label">Daytime</span>
-                            <small>Work, casual outings</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'evening')">
-                            <span class="emoji">🌃</span>
-                            <span class="label">Evening</span>
-                            <small>Dates, dinners, events</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'both')">
-                            <span class="emoji">🌓</span>
-                            <span class="label">Both</span>
-                            <small>Versatile all-day scents</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'special')">
-                            <span class="emoji">✨</span>
-                            <span class="label">Special Occasions</span>
-                            <small>Weddings, celebrations</small>
-                        </div>
-                    </div>
-                    <div class="quiz-nav">
-                        <button class="quiz-btn quiz-btn-prev" onclick="prevQuizStep()">← Back</button>
-                        <button class="quiz-btn quiz-btn-next" onclick="nextQuizStep()">Next →</button>
-                    </div>
-                </div>
-                <div class="quiz-step" data-step="3">
-                    <h3>What is your budget range?</h3>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'budget')">
-                            <span class="emoji">💰</span>
-                            <span class="label">Under $100</span>
-                            <small>Quality everyday scents</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'mid')">
-                            <span class="emoji">💰💰</span>
-                            <span class="label">$100 - $200</span>
-                            <small>Premium designer fragrances</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'luxury')">
-                            <span class="emoji">💰💰💰</span>
-                            <span class="label">$200+</span>
-                            <small>Luxury & niche perfumes</small>
-                        </div>
-                        <div class="quiz-option" onclick="selectQuizOption(this, 'any')">
-                            <span class="emoji">💎</span>
-                            <span class="label">Price Does Not Matter</span>
-                            <small>Best match regardless</small>
-                        </div>
-                    </div>
-                    <div class="quiz-nav">
-                        <button class="quiz-btn quiz-btn-prev" onclick="prevQuizStep()">← Back</button>
-                        <button class="quiz-btn quiz-btn-next" onclick="showRecommendations()">See Results ✨</button>
-                    </div>
-                </div>
-                <div class="quiz-results" id="quizResults">
-                    <h3>Your Personalized Recommendations</h3>
-                    <p>Based on your preferences, we recommend these fragrances:</p>
-                    <div class="recommended-products" id="recommendedProducts"></div>
-                    <div class="quiz-nav">
-                        <button class="quiz-btn quiz-btn-prev" onclick="restartQuiz()">Start Over</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="section-header">
-            <h2>About ELIF</h2>
-            <div class="divider"></div>
-        </div>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; color: var(--text-light); line-height: 1.8;">
-            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
-                ELIF is a curated destination for fragrance enthusiasts. We believe that scent is the most powerful form of self-expression — 
-                invisible yet unforgettable. Our collection spans from timeless classics to avant-garde niche creations, 
-                each selected for its artistry, quality, and emotional resonance.
-            </p>
-            <p>
-                Whether you are seeking your signature scent or exploring new olfactory territories, 
-                our expert curation and personalized recommendation tools guide you to fragrances that truly speak to you.
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer role="contentinfo">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="#">All Fragrances</a></li>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Bestsellers</a></li>
-                    <li><a href="#">Gift Sets</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Help</h4>
-                <ul>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Fragrance Guide</a></li>
-                    <li><a href="#">Size Guide</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Sustainability</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Newsletter</h4>
-                <p>Subscribe for exclusive offers and fragrance tips.</p>
-                <div style="margin-top: 1rem;">
-                    <input type="email" placeholder="Your email" style="padding: 0.8rem; border: none; border-radius: 4px; width: 100%; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">
-                    <button style="padding: 0.8rem; background: var(--secondary); color: white; border: none; border-radius: 4px; width: 100%; cursor: pointer; font-weight: 600;">Subscribe</button>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p> 2026 ELIF Perfumes. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Product Detail Modal -->
-    <div class="modal-overlay" id="productModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal()">✕</button>
-            <div class="modal-content" id="modalContent"></div>
-        </div>
-    </div>
-
-    <!-- Cart Sidebar -->
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()">
-        <div class="cart-sidebar" onclick="event.stopPropagation()">
-            <div class="cart-header">
-                <h3>Your Cart</h3>
-                <button class="cart-close" onclick="toggleCart()">✕</button>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <div class="cart-empty">
-                    <div class="cart-empty-icon">🛒</div>
-                    <p>Your cart is empty</p>
-                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some fragrances to get started</p>
-                </div>
-            </div>
-            <div class="cart-footer">
-                <div class="cart-subtotal">
-                    <span>Subtotal</span>
-                    <span id="cartSubtotal">$0.00</span>
-                </div>
-                <div class="cart-subtotal">
-                    <span>Shipping</span>
-                    <span>Free</span>
-                </div>
-                <div class="cart-total">
-                    <span>Total</span>
-                    <span id="cartTotal">$0.00</span>
-                </div>
-                <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>Proceed to Checkout</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Checkout Modal -->
-    <div class="checkout-modal" id="checkoutModal">
-        <div class="checkout-form">
-            <button class="modal-close" onclick="closeCheckout()" style="position: relative; float: right; margin-bottom: 1rem;">✕</button>
-            <h2>Checkout</h2>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="your@email.com">
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" placeholder="John">
-                </div>
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" placeholder="Doe">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" placeholder="123 Fragrance Lane">
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>City</label>
-                    <input type="text" placeholder="New York">
-                </div>
-                <div class="form-group">
-                    <label>Postal Code</label>
-                    <input type="text" placeholder="10001">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Country</label>
-                <select>
-                    <option>United States</option>
-                    <option>United Kingdom</option>
-                    <option>France</option>
-                    <option>Italy</option>
-                    <option>Canada</option>
-                </select>
-            </div>
-            <div style="margin: 1.5rem 0;">
-                <label style="font-weight: 600; margin-bottom: 0.8rem; display: block;">Payment Method</label>
-                <div class="payment-methods">
-                    <div class="payment-method active" onclick="selectPayment(this)">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💳</div>
-                        <div>Credit Card</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPayment(this)">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📱</div>
-                        <div>PayPal</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPayment(this)">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🍎</div>
-                        <div>Apple Pay</div>
-                    </div>
-                </div>
-            </div>
-            <div class="order-summary">
-                <h4>Order Summary</h4>
-                <div id="checkoutItems"></div>
-                <div class="summary-total">
-                    <span>Total</span>
-                    <span id="checkoutTotal">$0.00</span>
-                </div>
-            </div>
-            <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
-        </div>
-    </div>
-
-    <!-- Toast -->
-    <div class="toast" id="toast"></div>
-
-    <script>
-        // Product Data
-        const products = [
-            { id: 1, name: "Midnight Oud", brand: "Maison Noir", category: "woody", type: "luxury", price: 285, originalPrice: null, badge: "luxury", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=500&fit=crop", notes: ["oud", "sandalwood", "amber"], topNotes: ["Saffron", "Nutmeg"], heartNotes: ["Oud Wood", "Sandalwood"], baseNotes: ["Amber", "Vanilla", "Musk"], description: "A deep, mysterious fragrance that captures the essence of Arabian nights. Rich oud wood blends with warm amber and creamy vanilla for an unforgettable sillage.", sizes: ["50ml", "100ml"] },
-            { id: 2, name: "Rose Eternelle", brand: "Chateau Parfum", category: "floral", type: "luxury", price: 195, originalPrice: 245, badge: "luxury", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=500&fit=crop", notes: ["rose", "jasmine", "musk"], topNotes: ["Bergamot", "Pink Pepper"], heartNotes: ["Turkish Rose", "Jasmine", "Peony"], baseNotes: ["White Musk", "Cedar", "Amber"], description: "An eternal rose that blooms forever. This exquisite floral composition centers on the finest Turkish rose absolute, supported by delicate jasmine and a warm musky base.", sizes: ["30ml", "50ml", "100ml"] },
-            { id: 3, name: "Citrus Vert", brand: "L'Atelier Fresh", category: "fresh", type: "everyday", price: 85, originalPrice: null, badge: "new", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=500&fit=crop", notes: ["bergamot", "lemon", "vetiver"], topNotes: ["Italian Bergamot", "Sicilian Lemon", "Grapefruit"], heartNotes: ["Green Tea", "Neroli", "Blackcurrant"], baseNotes: ["Vetiver", "White Musk", "Cedar"], description: "A burst of Mediterranean sunshine in a bottle. Bright citrus notes give way to a sophisticated green tea heart, grounded by earthy vetiver.", sizes: ["50ml", "100ml"] },
-            { id: 4, name: "Vanille Absolue", brand: "Gourmand Paris", category: "oriental", type: "niche", price: 165, originalPrice: null, badge: "niche", image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=500&fit=crop", notes: ["vanilla", "tonka", "caramel"], topNotes: ["Almond", "Heliotrope"], heartNotes: ["Madagascar Vanilla", "Tonka Bean", "Cinnamon"], baseNotes: ["Sandalwood", "Amber", "Musk"], description: "The ultimate vanilla experience. Pure Madagascar vanilla absolute creates a rich, gourmand scent that is both comforting and sophisticated.", sizes: ["50ml", "100ml"] },
-            { id: 5, name: "Bois Sauvage", brand: "Foret Elegance", category: "woody", type: "everyday", price: 95, originalPrice: 120, badge: null, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=500&fit=crop", notes: ["cedar", "pine", "sandalwood"], topNotes: ["Pine Needle", "Bergamot"], heartNotes: ["Cedarwood", "Sandalwood", "Violet Leaf"], baseNotes: ["Moss", "Amber", "Leather"], description: "A walk through an ancient forest. Fresh pine and bergamot open to a heart of cedar and sandalwood, resting on a base of moss and subtle leather.", sizes: ["50ml", "100ml"] },
-            { id: 6, name: "Jardin Secret", brand: "Floraison", category: "floral", type: "niche", price: 145, originalPrice: null, badge: "niche", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=500&fit=crop", notes: ["jasmine", "lily", "gardenia"], topNotes: ["Green Leaves", "Dew Drops"], heartNotes: ["Jasmine Sambac", "Lily of the Valley", "Gardenia"], baseNotes: ["White Musk", "Amber", "Sandalwood"], description: "A secret garden in full bloom. White florals create an intoxicating bouquet, evoking the feeling of discovering a hidden paradise.", sizes: ["30ml", "50ml"] },
-            { id: 7, name: "Ambre Imperial", brand: "Maison Royale", category: "oriental", type: "luxury", price: 320, originalPrice: null, badge: "luxury", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=500&fit=crop", notes: ["amber", "spices", "incense"], topNotes: ["Pink Pepper", "Cardamom", "Cinnamon"], heartNotes: ["Amber", "Incense", "Myrrh"], baseNotes: ["Vanilla", "Sandalwood", "Leather"], description: "Imperial amber at its finest. A majestic oriental fragrance that commands attention with its rich spice opening and deep, resinous heart.", sizes: ["50ml", "100ml"] },
-            { id: 8, name: "Eau Pure", brand: "Clair de Lune", category: "fresh", type: "everyday", price: 75, originalPrice: null, badge: null, image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=500&fit=crop", notes: ["aquatic", "cucumber", "melon"], topNotes: ["Sea Salt", "Cucumber", "Melon"], heartNotes: ["Aquatic Notes", "Lotus", "Bamboo"], baseNotes: ["White Musk", "Cedar", "Ambergris"], description: "Pure, clean, and refreshing. Inspired by the ocean breeze, this aquatic fragrance brings a sense of calm and clarity to your day.", sizes: ["50ml", "100ml", "200ml"] },
-            { id: 9, name: "Patchouli Mystique", brand: "Terre Obscure", category: "woody", type: "niche", price: 175, originalPrice: 210, badge: "niche", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=500&fit=crop", notes: ["patchouli", "vetiver", "oakmoss"], topNotes: ["Bergamot", "Black Pepper"], heartNotes: ["Patchouli", "Vetiver", "Clove"], baseNotes: ["Oakmoss", "Leather", "Amber"], description: "Mystical and grounding. Premium Indonesian patchouli takes center stage in this earthy, sophisticated composition for the true connoisseur.", sizes: ["50ml", "100ml"] },
-            { id: 10, name: "Fleur d'Oranger", brand: "Mediterranee", category: "floral", type: "everyday", price: 88, originalPrice: null, badge: "new", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=500&fit=crop", notes: ["orange blossom", "neroli", "honey"], topNotes: ["Bitter Orange", "Petitgrain"], heartNotes: ["Orange Blossom", "Neroli", "Jasmine"], baseNotes: ["Honey", "Beeswax", "White Musk"], description: "The golden glow of Mediterranean orange groves. Sweet orange blossom and neroli create a luminous, joyful fragrance perfect for sunny days.", sizes: ["50ml", "100ml"] },
-            { id: 11, name: "Cuir Noir", brand: "Atelier Cuir", category: "oriental", type: "luxury", price: 250, originalPrice: null, badge: "luxury", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=500&fit=crop", notes: ["leather", "saffron", "oud"], topNotes: ["Saffron", "Raspberry"], heartNotes: ["Leather", "Jasmine", "Oud"], baseNotes: ["Amber", "Musk", "Vanilla"], description: "Bold, dark, and undeniably luxurious. Premium leather accord meets exotic saffron and oud in this powerful statement fragrance.", sizes: ["50ml", "100ml"] },
-            { id: 12, name: "Bergamote Soleil", brand: "Citrus d'Or", category: "fresh", type: "niche", price: 135, originalPrice: null, badge: "niche", image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=500&fit=crop", notes: ["bergamot", "grapefruit", "vetiver"], topNotes: ["Calabrian Bergamot", "Grapefruit", "Lime"], heartNotes: ["Ginger", "Cardamom", "Rosemary"], baseNotes: ["Vetiver", "Oakmoss", "White Musk"], description: "Sunshine captured in liquid form. The finest Calabrian bergamot shines bright in this sophisticated citrus composition with unexpected depth.", sizes: ["50ml", "100ml"] }
-        ];
-
-        let cart = [];
-        let activeFilters = { category: 'all', notes: [], search: '' };
-        let quizAnswers = {};
-        let currentQuizStep = 1;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
-            updateCartUI();
-            window.addEventListener('scroll', function() {
-                const navbar = document.getElementById('navbar');
-                if (window.scrollY > 50) navbar.classList.add('scrolled');
-                else navbar.classList.remove('scrolled');
-            });
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            });
-        });
-
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            let filtered = products;
-            if (activeFilters.category !== 'all') filtered = filtered.filter(p => p.category === activeFilters.category);
-            if (activeFilters.notes.length > 0) filtered = filtered.filter(p => activeFilters.notes.some(note => p.notes.includes(note)));
-            if (activeFilters.search) {
-                const search = activeFilters.search.toLowerCase();
-                filtered = filtered.filter(p => p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search) || p.notes.some(n => n.toLowerCase().includes(search)));
-            }
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-light);"><div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div><h3>No fragrances found</h3><p>Try adjusting your filters or search terms</p></div>';
-                return;
-            }
-            grid.innerHTML = filtered.map(product => `
-                <div class="product-card" onclick="openProductModal(${product.id})">
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}">
-                        ${product.badge ? `<span class="product-badge badge-${product.badge}">${product.badge}</span>` : ''}
-                        <div class="product-actions">
-                            <button onclick="event.stopPropagation(); addToCart(${product.id})" title="Add to Cart">🛒</button>
-                            <button onclick="event.stopPropagation(); toggleWishlist(${product.id})" title="Wishlist">♡</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">${product.category}</div>
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-brand">${product.brand}</div>
-                        <div class="product-notes">${product.notes.slice(0, 3).map(note => `<span class="note-tag">${note}</span>`).join('')}</div>
-                        <div class="product-footer">
-                            <div class="product-price">$${product.price}${product.originalPrice ? `<span class="original">$${product.originalPrice}</span>` : ''}</div>
-                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function setCategoryFilter(category) {
-            activeFilters.category = category;
-            document.querySelectorAll('#categoryFilters .filter-chip').forEach(chip => chip.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts();
-        }
-
-        function toggleNoteFilter(note) {
-            const index = activeFilters.notes.indexOf(note);
-            if (index > -1) { activeFilters.notes.splice(index, 1); event.target.classList.remove('active'); }
-            else { activeFilters.notes.push(note); event.target.classList.add('active'); }
-            renderProducts();
-        }
-
-        function filterProducts() {
-            activeFilters.search = document.getElementById('searchInput').value;
-            renderProducts();
-        }
-
-        function filterByCategory(category) {
-            activeFilters.category = category;
-            document.querySelectorAll('#categoryFilters .filter-chip').forEach(chip => {
-                chip.classList.remove('active');
-                if (chip.textContent.toLowerCase() === category) chip.classList.add('active');
-            });
-            document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
-            renderProducts();
-        }
-
-        function openProductModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            const modal = document.getElementById('productModal');
-            const content = document.getElementById('modalContent');
-            content.innerHTML = `
-                <div class="modal-image"><img src="${product.image}" alt="${product.name}"></div>
-                <div class="modal-details">
-                    <div class="product-category">${product.category} · ${product.type}</div>
-                    <h2>${product.name}</h2>
-                    <div class="brand">${product.brand}</div>
-                    <div class="modal-price">$${product.price}</div>
-                    <div class="modal-description">${product.description}</div>
-                    <div class="scent-pyramid">
-                        <h4>Fragrance Notes</h4>
-                        <div class="pyramid-level"><div class="pyramid-label">Top Notes</div><div class="pyramid-notes">${product.topNotes.map(n => `<span>${n}</span>`).join('')}</div></div>
-                        <div class="pyramid-level"><div class="pyramid-label">Heart Notes</div><div class="pyramid-notes">${product.heartNotes.map(n => `<span>${n}</span>`).join('')}</div></div>
-                        <div class="pyramid-level"><div class="pyramid-label">Base Notes</div><div class="pyramid-notes">${product.baseNotes.map(n => `<span>${n}</span>`).join('')}</div></div>
-                    </div>
-                    <div class="size-selector"><h4>Select Size</h4><div class="size-options">${product.sizes.map((size, i) => `<div class="size-option ${i === 0 ? 'active' : ''}" onclick="selectSize(this)">${size}</div>`).join('')}</div></div>
-                    <button class="modal-add-cart" onclick="addToCart(${product.id}); closeModal();">Add to Cart — $${product.price}</button>
-                </div>`;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() { document.getElementById('productModal').classList.remove('active'); document.body.style.overflow = ''; }
-        function selectSize(el) { el.parentElement.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active')); el.classList.add('active'); }
-
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existing = cart.find(item => item.id === productId);
-            if (existing) existing.quantity++;
-            else cart.push({ ...product, quantity: 1 });
-            updateCartUI();
-            showToast(`${product.name} added to cart!`);
-        }
-
-        function removeFromCart(productId) { cart = cart.filter(item => item.id !== productId); updateCartUI(); }
-
-        function updateQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) removeFromCart(productId);
-                else updateCartUI();
-            }
-        }
-
-        function updateCartUI() {
-            const cartItems = document.getElementById('cartItems');
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            document.getElementById('cartCount').textContent = totalItems;
-            document.getElementById('cartSubtotal').textContent = `$${totalPrice.toFixed(2)}`;
-            document.getElementById('cartTotal').textContent = `$${totalPrice.toFixed(2)}`;
-            document.getElementById('checkoutBtn').disabled = cart.length === 0;
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty</p><p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some fragrances to get started</p></div>';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <div class="cart-item-image"><img src="${item.image}" alt="${item.name}"></div>
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-brand">${item.brand}</div>
-                            <div class="cart-item-price">$${item.price}</div>
-                            <div class="cart-item-qty">
-                                <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
-                                <span>${item.quantity}</span>
-                                <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </div>
-                            <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function toggleCart() { document.getElementById('cartOverlay').classList.toggle('active'); }
-        function toggleWishlist(productId) { showToast('Added to wishlist! ❤️'); }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function selectQuizOption(element, value) {
-            const step = element.closest('.quiz-step');
-            step.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            quizAnswers[step.dataset.step] = value;
-        }
-
-        function nextQuizStep() {
-            const currentStep = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
-            if (!quizAnswers[currentQuizStep]) { showToast('Please select an option'); return; }
-            currentStep.classList.remove('active');
-            currentQuizStep++;
-            const nextStep = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
-            if (nextStep) nextStep.classList.add('active');
-        }
-
-        function prevQuizStep() {
-            const currentStep = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
-            currentStep.classList.remove('active');
-            currentQuizStep--;
-            const prevStep = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
-            if (prevStep) prevStep.classList.add('active');
-        }
-
-        function showRecommendations() {
-            if (!quizAnswers['3']) { showToast('Please select an option'); return; }
-            const currentStep = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
-            currentStep.classList.remove('active');
-            const preferredCategory = quizAnswers['1'];
-            const budget = quizAnswers['3'];
-            let recommended = products.filter(p => p.category === preferredCategory);
-            if (budget === 'budget') recommended = recommended.filter(p => p.price < 100);
-            else if (budget === 'mid') recommended = recommended.filter(p => p.price >= 100 && p.price <= 200);
-            else if (budget === 'luxury') recommended = recommended.filter(p => p.price > 200);
-            if (recommended.length === 0) recommended = products.filter(p => p.category === preferredCategory).slice(0, 3);
-            if (recommended.length === 0) recommended = products.slice(0, 3);
-            const resultsDiv = document.getElementById('quizResults');
-            const productsDiv = document.getElementById('recommendedProducts');
-            productsDiv.innerHTML = recommended.slice(0, 3).map(product => `
-                <div class="product-card" onclick="openProductModal(${product.id})" style="cursor: pointer;">
-                    <div class="product-image" style="height: 200px;"><img src="${product.image}" alt="${product.name}" style="width: 50%;"></div>
-                    <div class="product-info" style="padding: 1rem;">
-                        <div class="product-name" style="font-size: 1rem;">${product.name}</div>
-                        <div class="product-brand" style="font-size: 0.8rem;">${product.brand}</div>
-                        <div class="product-price" style="font-size: 1.1rem; margin-top: 0.5rem;">$${product.price}</div>
-                    </div>
-                </div>
-            `).join('');
-            resultsDiv.classList.add('active');
-        }
-
-        function restartQuiz() {
-            quizAnswers = {};
-            currentQuizStep = 1;
-            document.querySelectorAll('.quiz-step').forEach(step => step.classList.remove('active'));
-            document.querySelector('.quiz-step[data-step="1"]').classList.add('active');
-            document.getElementById('quizResults').classList.remove('active');
-            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
-        }
-
-        function openCheckout() {
-            const checkoutModal = document.getElementById('checkoutModal');
-            const checkoutItems = document.getElementById('checkoutItems');
-            const checkoutTotal = document.getElementById('checkoutTotal');
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            checkoutItems.innerHTML = cart.map(item => `<div class="summary-item"><span>${item.name} × ${item.quantity}</span><span>$${(item.price * item.quantity).toFixed(2)}</span></div>`).join('');
-            checkoutTotal.textContent = `$${totalPrice.toFixed(2)}`;
-            checkoutModal.classList.add('active');
-            toggleCart();
-        }
-
-        function closeCheckout() { document.getElementById('checkoutModal').classList.remove('active'); }
-        function selectPayment(element) { document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active')); element.classList.add('active'); }
-        function placeOrder() { showToast('Order placed successfully! 🎉'); cart = []; updateCartUI(); closeCheckout(); }
-        function toggleMobileMenu() { showToast('Mobile menu - add navigation drawer here'); }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-                closeCheckout();
-                if (document.getElementById('cartOverlay').classList.contains('active')) toggleCart();
-            }
-        });
-
-        document.getElementById('productModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-    
-        // ===== LOGIN SYSTEM =====
-        const VALID_EMAIL = "mahmoudaljabri09@gmail.com";
-        const VALID_PASSWORD = "1742026";
-        let currentUser = null;
-
-        // Check for saved login on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedUser = localStorage.getItem('elif_user');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateUIForLoggedInUser();
-            }
-        });
-
-        function toggleUserMenu() {
-            if (!currentUser) {
-                openLoginModal();
-                return;
-            }
-            const menu = document.getElementById('userMenu');
-            if (menu.style.display === 'none') {
-                menu.style.display = 'block';
-                setTimeout(() => {
-                    document.addEventListener('click', closeUserMenuOutside);
-                }, 10);
-            } else {
-                menu.style.display = 'none';
-                document.removeEventListener('click', closeUserMenuOutside);
-            }
-        }
-
-        function closeUserMenuOutside(e) {
-            const menu = document.getElementById('userMenu');
-            const btn = document.getElementById('userBtn');
-            if (!menu.contains(e.target) && e.target !== btn) {
-                menu.style.display = 'none';
-                document.removeEventListener('click', closeUserMenuOutside);
-            }
-        }
-
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.add('active');
-            document.getElementById('loginError').style.display = 'none';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-            const errorMsg = document.getElementById('loginError');
-
-            if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-                currentUser = {
-                    email: email,
-                    name: email.split('@')[0],
-                    loginTime: new Date().toISOString()
-                };
-                if (rememberMe) {
-                    localStorage.setItem('elif_user', JSON.stringify(currentUser));
-                }
-                updateUIForLoggedInUser();
-                closeLoginModal();
-                showToast('Welcome back, ' + currentUser.name + '! 👋');
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-            } else {
-                errorMsg.style.display = 'block';
-                document.getElementById('loginPassword').value = '';
-            }
-        }
-
-        function updateUIForLoggedInUser() {
-            if (!currentUser) return;
-            const btn = document.getElementById('userBtn');
-            btn.innerHTML = '👤 ' + currentUser.name;
-            btn.title = currentUser.email;
-            document.getElementById('userNameDisplay').textContent = currentUser.name;
-            document.getElementById('userEmailDisplay').textContent = currentUser.email;
-        }
-
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('elif_user');
-            document.getElementById('userBtn').innerHTML = '👤';
-            document.getElementById('userBtn').title = '';
-            document.getElementById('userMenu').style.display = 'none';
-            showToast('Signed out successfully');
-        }
-
-        // Allow Enter key to submit login
-        document.addEventListener('DOMContentLoaded', function() {
-            const passwordInput = document.getElementById('loginPassword');
-            if (passwordInput) {
-                passwordInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') handleLogin();
-                });
-            }
-        });
-        // ===== END LOGIN SYSTEM =====
-
-    </script>
-
-    <!-- Login Modal -->
-    <div class="modal-overlay" id="loginModal" style="z-index: 5000;">
-        <div class="modal" style="max-width: 420px;">
-            <button class="modal-close" onclick="closeLoginModal()">✕</button>
-            <div style="padding: 2.5rem 2rem;">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <div class="brand" style="font-size: 2rem; margin-bottom: 0.5rem;">ELIF</div>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Sign in to your account</p>
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="your@email.com" style="padding: 0.9rem 1rem;">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password" style="padding: 0.9rem 1rem;">
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.85rem;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 400;">
-                        <input type="checkbox" id="rememberMe" style="width: auto;"> Remember me
-                    </label>
-                    <a href="#" style="color: var(--secondary); text-decoration: none;">Forgot password?</a>
-                </div>
-                <button class="modal-add-cart" onclick="handleLogin()" style="margin-top: 0;">Sign In</button>
-                <p id="loginError" style="color: #c44; text-align: center; margin-top: 1rem; font-size: 0.9rem; display: none;">Invalid email or password</p>
-                <p style="text-align: center; margin-top: 1.5rem; color: var(--text-light); font-size: 0.9rem;">
-                    Don't have an account? <a href="#" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Create account</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- User Dropdown Menu -->
-    <div id="userMenu" style="display: none; position: fixed; top: 70px; right: 2rem; background: white; border-radius: 12px; box-shadow: var(--shadow-lg); z-index: 1001; min-width: 220px; padding: 0.5rem 0; border: 1px solid var(--border);">
-        <div style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);">
-            <div id="userNameDisplay" style="font-weight: 600; color: var(--primary);">User</div>
-            <div id="userEmailDisplay" style="font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem;">email</div>
-        </div>
-        <a href="#" style="display: block; padding: 0.8rem 1.5rem; color: var(--text); text-decoration: none; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='white'">👤 My Account</a>
-        <a href="#" style="display: block; padding: 0.8rem 1.5rem; color: var(--text); text-decoration: none; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='white'">📦 My Orders</a>
-        <a href="#" style="display: block; padding: 0.8rem 1.5rem; color: var(--text); text-decoration: none; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='white'">❤️ Wishlist</a>
-        <div style="border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 0.5rem;">
-            <a href="#" onclick="handleLogout(); return false;" style="display: block; padding: 0.8rem 1.5rem; color: #c44; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='white'">🚪 Sign Out</a>
-        </div>
-    </div>
-
-</body>
-</html>
+        /* ===== EDITABLE HIGHLIGHTS (Admin Mode) ===== */
+        .edit-mode .editable { outline: 2px dashed var(--secondary); position: relative; cursor: pointer; }
+        .edit-mode .editable:hover { outline: 2px solid var(--secondary); background: rgba(201,169,110,0.1); }
+        .edit-mode .editable::after { content: '✏️ Click to edit'; position: absolute; top: -20px; right: 0; background: var(--secondary); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; opacity: 0; transition: opacity 0.3s; font-family: 'Inter', sans-serif; }
+        .edit-mode .editable:hover::after { opacity: 1; }
+        .edit-btn { position: fixed; bottom: 2rem; left: 2rem; z-index: 5000; padding: 1rem 2rem; backgrou
