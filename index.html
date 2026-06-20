@@ -45,19 +45,46 @@
         .badge-count { position: absolute; top: -2px; right: -2px; background: var(--primary); color: var(--secondary); font-size: 0.7rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .badge-count.danger { background: var(--danger); color: white; }
 
+        /* ======== SYNC BUTTON ======== */
+        .sync-btn {
+            background: var(--success);
+            color: var(--secondary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .sync-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+        }
+        .sync-btn.syncing {
+            animation: spin 1s linear infinite;
+        }
+        .sync-btn.synced {
+            background: var(--primary);
+            animation: none;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         /* ======== NOTIFICATION BELL ======== */
-        .notification-bell {
-            position: relative;
-        }
-        .notification-bell .icon-btn {
-            position: relative;
-        }
-        .notification-bell .icon-btn.has-new {
-            animation: bellShake 0.5s ease-in-out;
-        }
-        .notification-bell .icon-btn.has-new i {
-            color: var(--success);
-        }
+        .notification-bell { position: relative; }
+        .notification-bell .icon-btn.has-new { animation: bellShake 0.5s ease-in-out; }
+        .notification-bell .icon-btn.has-new i { color: var(--success); }
         @keyframes bellShake {
             0%, 100% { transform: rotate(0); }
             10%, 30%, 50%, 70%, 90% { transform: rotate(8deg); }
@@ -79,11 +106,7 @@
             z-index: 1002;
             overflow: hidden;
         }
-        .notification-dropdown.open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
+        .notification-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
         .notification-dropdown::before {
             content: '';
             position: absolute;
@@ -103,11 +126,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        .notification-header h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            color: var(--text);
-        }
+        .notification-header h4 { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--text); }
         .notification-header .mark-read {
             font-size: 0.8rem;
             color: var(--primary);
@@ -116,13 +135,8 @@
             border: none;
             transition: opacity 0.3s;
         }
-        .notification-header .mark-read:hover {
-            opacity: 0.8;
-        }
-        .notification-list {
-            max-height: 350px;
-            overflow-y: auto;
-        }
+        .notification-header .mark-read:hover { opacity: 0.8; }
+        .notification-list { max-height: 350px; overflow-y: auto; }
         .notification-item {
             display: flex;
             gap: 0.8rem;
@@ -131,13 +145,10 @@
             cursor: pointer;
             transition: all 0.3s;
             align-items: flex-start;
+            position: relative;
         }
-        .notification-item:hover {
-            background: var(--card-bg);
-        }
-        .notification-item.unread {
-            background: rgba(74, 222, 128, 0.05);
-        }
+        .notification-item:hover { background: var(--card-bg); }
+        .notification-item.unread { background: rgba(74, 222, 128, 0.05); }
         .notification-item.unread::before {
             content: '';
             position: absolute;
@@ -156,10 +167,7 @@
             object-fit: cover;
             flex-shrink: 0;
         }
-        .notification-item .notif-content {
-            flex: 1;
-            min-width: 0;
-        }
+        .notification-item .notif-content { flex: 1; min-width: 0; }
         .notification-item .notif-content h5 {
             font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
@@ -168,39 +176,13 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .notification-item .notif-content p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 0.2rem;
-        }
-        .notification-item .notif-content .notif-time {
-            font-size: 0.7rem;
-            color: var(--success);
-        }
-        .notification-empty {
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-muted);
-        }
-        .notification-empty i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.5;
-        }
-        .notification-footer {
-            padding: 0.8rem 1.2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-        .notification-footer a {
-            color: var(--primary);
-            font-size: 0.85rem;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .notification-footer a:hover {
-            text-decoration: underline;
-        }
+        .notification-item .notif-content p { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+        .notification-item .notif-content .notif-time { font-size: 0.7rem; color: var(--success); }
+        .notification-empty { padding: 2rem; text-align: center; color: var(--text-muted); }
+        .notification-empty i { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.5; }
+        .notification-footer { padding: 0.8rem 1.2rem; border-top: 1px solid var(--border); text-align: center; }
+        .notification-footer a { color: var(--primary); font-size: 0.85rem; text-decoration: none; cursor: pointer; }
+        .notification-footer a:hover { text-decoration: underline; }
 
         /* Hero */
         .hero { margin-top: 80px; min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, rgba(15,15,26,0.95) 0%, rgba(22,33,62,0.9) 100%), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920') center/cover; position: relative; }
@@ -502,6 +484,35 @@
             z-index: 100;
             backdrop-filter: blur(10px);
         }
+
+        /* ======== SYNC MODAL ======== */
+        .sync-modal .modal-body {
+            text-align: center;
+        }
+        .sync-modal .sync-code {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--primary);
+            word-break: break-all;
+        }
+        .sync-modal .sync-instructions {
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 1rem 0;
+        }
+        .sync-modal .sync-instructions ol {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .sync-modal .sync-instructions li {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -524,6 +535,12 @@
             </nav>
             <div class="header-actions">
                 
+                <!-- ======== SYNC BUTTON ======== -->
+                <button class="sync-btn" id="syncBtn" onclick="syncProducts()" title="Sync latest products">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Sync</span>
+                </button>
+
                 <!-- ======== NOTIFICATION BELL ======== -->
                 <div class="notification-bell" id="notificationBell">
                     <button class="icon-btn" onclick="toggleNotifications()" title="Notifications">
@@ -841,6 +858,42 @@
         </div>
     </div>
 
+    <!-- Sync Modal -->
+    <div class="modal-overlay sync-modal" id="syncModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-sync-alt"></i> Sync Products</h3>
+                <button class="modal-close" onclick="closeSyncModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Share your product database with others or import from a shared source.</p>
+                
+                <div class="sync-instructions">
+                    <strong style="color: var(--primary);">How to share your products:</strong>
+                    <ol>
+                        <li>Add your products in the Admin Panel</li>
+                        <li>Click "Export Data" below to copy your database</li>
+                        <li>Share the code with your friends</li>
+                        <li>They paste it and click "Import Data"</li>
+                    </ol>
+                </div>
+
+                <button class="btn btn-block" onclick="exportData()" style="margin-bottom: 0.5rem;">
+                    <i class="fas fa-download"></i> Export My Products
+                </button>
+                
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>Paste shared product code here:</label>
+                    <textarea id="importCode" rows="4" placeholder="Paste the code here..."></textarea>
+                </div>
+                
+                <button class="btn btn-block" onclick="importData()" style="margin-top: 0.5rem;">
+                    <i class="fas fa-upload"></i> Import Products
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Admin Panel -->
     <div class="cart-overlay" id="adminOverlay" onclick="closeAdminPanel()"></div>
     <div class="admin-panel" id="adminPanel">
@@ -860,6 +913,10 @@
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-tags"></i></div><div class="stat-info"><h4 id="statCategories">4</h4><p>Categories</p></div></div>
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-dollar-sign"></i></div><div class="stat-info"><h4 id="statAvgPrice">$0</h4><p>Average Price</p></div></div>
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div><div class="stat-info"><h4 id="statCartItems">0</h4><p>Items in Cart</p></div></div>
+                
+                <button class="btn btn-sm btn-block" style="margin-top: 1rem;" onclick="openSyncModal()">
+                    <i class="fas fa-share-alt"></i> Share Products with Friends
+                </button>
             </div>
             <div class="admin-section" id="adminProducts">
                 <button class="btn btn-sm btn-block" style="margin-bottom: 1rem;" onclick="openAddProduct()"><i class="fas fa-plus"></i> Add New Product</button>
@@ -971,15 +1028,89 @@
             localStorage.setItem('elif_last_update', Date.now().toString());
         }
 
+        // ==================== SYNC / EXPORT / IMPORT ====================
+        function syncProducts() {
+            openSyncModal();
+        }
+
+        function openSyncModal() {
+            document.getElementById('syncModal').classList.add('open');
+        }
+
+        function closeSyncModal() {
+            document.getElementById('syncModal').classList.remove('open');
+        }
+
+        function exportData() {
+            const exportObj = {
+                products: state.products,
+                categories: state.categories,
+                settings: state.settings,
+                exportedAt: new Date().toISOString()
+            };
+            const jsonStr = JSON.stringify(exportObj);
+            const encoded = btoa(jsonStr); // Base64 encode
+            
+            navigator.clipboard.writeText(encoded).then(() => {
+                showToast('Product code copied to clipboard! Share it with friends.');
+                document.getElementById('importCode').value = encoded;
+            }).catch(() => {
+                // Fallback
+                document.getElementById('importCode').value = encoded;
+                showToast('Copy the code manually and share it!');
+            });
+        }
+
+        function importData() {
+            const code = document.getElementById('importCode').value.trim();
+            if (!code) {
+                showToast('Please paste a product code!', 'error');
+                return;
+            }
+            
+            try {
+                const jsonStr = atob(code); // Base64 decode
+                const data = JSON.parse(jsonStr);
+                
+                if (data.products && Array.isArray(data.products)) {
+                    // Merge products, avoiding duplicates
+                    const existingIds = state.products.map(p => p.id);
+                    let newCount = 0;
+                    
+                    data.products.forEach(product => {
+                        if (!existingIds.includes(product.id)) {
+                            state.products.push(product);
+                            state.newProductIds.push(product.id);
+                            newCount++;
+                        }
+                    });
+                    
+                    if (data.categories) state.categories = data.categories;
+                    if (data.settings) state.settings = {...state.settings, ...data.settings};
+                    
+                    saveData();
+                    renderProducts();
+                    renderCategories();
+                    renderNotifications();
+                    updateStats();
+                    applySettings();
+                    
+                    showToast(`Imported ${newCount} new products!`);
+                    closeSyncModal();
+                } else {
+                    showToast('Invalid product code!', 'error');
+                }
+            } catch (e) {
+                showToast('Invalid code format! Make sure you copied it correctly.', 'error');
+            }
+        }
+
         // ==================== NOTIFICATION BELL ====================
         function toggleNotifications() {
             const dropdown = document.getElementById('notificationDropdown');
             const isOpen = dropdown.classList.toggle('open');
-            
             if (isOpen) {
-                // Close other dropdowns
                 document.getElementById('userDropdown').classList.remove('open');
-                // Refresh notification list
                 renderNotifications();
             }
         }
@@ -989,12 +1120,10 @@
             const badge = document.getElementById('notifBadge');
             const bellBtn = document.querySelector('.notification-bell .icon-btn');
             
-            // Get unread new products
             const unreadProducts = state.newProductIds
                 .map(id => state.products.find(p => p.id === id))
                 .filter(p => p && !state.readNotifications.includes(p.id));
             
-            // Update badge
             if (unreadProducts.length > 0) {
                 badge.textContent = unreadProducts.length > 9 ? '9+' : unreadProducts.length;
                 badge.style.display = 'flex';
@@ -1004,7 +1133,6 @@
                 bellBtn.classList.remove('has-new');
             }
             
-            // Render list
             if (unreadProducts.length === 0) {
                 list.innerHTML = `
                     <div class="notification-empty">
@@ -1029,11 +1157,9 @@
         }
 
         function getTimeAgo(productId) {
-            // Use product ID as proxy for time (newer = higher ID)
             const now = Date.now();
             const approxTime = now - ((Date.now() % 100000) - (productId % 100000));
             const diff = Math.floor((now - approxTime) / 1000);
-            
             if (diff < 60) return 'Just now';
             if (diff < 3600) return `${Math.floor(diff/60)} min ago`;
             if (diff < 86400) return `${Math.floor(diff/3600)} hours ago`;
@@ -1041,20 +1167,13 @@
         }
 
         function viewProduct(productId) {
-            // Mark as read
             if (!state.readNotifications.includes(productId)) {
                 state.readNotifications.push(productId);
                 saveData();
             }
-            
-            // Close dropdown
             document.getElementById('notificationDropdown').classList.remove('open');
-            
-            // Navigate to products and highlight
             filterProducts('all');
             document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-            
-            // Highlight the product card
             setTimeout(() => {
                 const card = document.querySelector(`[data-product-id="${productId}"]`);
                 if (card) {
@@ -1063,7 +1182,6 @@
                     setTimeout(() => { card.style.borderColor = ''; }, 2000);
                 }
             }, 500);
-            
             renderNotifications();
         }
 
@@ -1086,9 +1204,7 @@
 
         // ==================== LIVE UPDATE CHECKER ====================
         function startLiveUpdateChecker() {
-            // Check every 3 seconds
             setInterval(checkForUpdates, 3000);
-            // Check on page focus
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden) {
                     checkForUpdates();
@@ -1102,16 +1218,12 @@
             const lastChecked = sessionStorage.getItem('elif_last_checked') || '0';
             
             if (lastUpdate && parseInt(lastUpdate) > parseInt(lastChecked)) {
-                // Reload products from storage to get updates
                 const storedProducts = JSON.parse(localStorage.getItem('elif_products')) || [];
                 const storedNewIds = JSON.parse(localStorage.getItem('elif_new_products')) || [];
-                
-                // Check if there are truly new products we haven't seen
                 const currentIds = state.products.map(p => p.id);
                 const newOnes = storedNewIds.filter(id => !currentIds.includes(id));
                 
                 if (newOnes.length > 0 || storedProducts.length !== state.products.length) {
-                    // Update state
                     state.products = storedProducts;
                     state.newProductIds = storedNewIds;
                     renderProducts();
@@ -1119,7 +1231,6 @@
                     updateStats();
                     showToast('New products available! Check the bell icon.', 'success');
                 }
-                
                 sessionStorage.setItem('elif_last_checked', Date.now().toString());
             }
         }
@@ -1686,10 +1797,9 @@
                 state.products[idx] = product;
                 showToast('Product updated!');
             } else {
-                // NEW PRODUCT - Add to notification system
                 state.products.push(product);
                 state.newProductIds.push(product.id);
-                showToast('Product added! Notification sent to all users.');
+                showToast('Product added! Share with friends via Sync button.');
             }
             
             saveData();
