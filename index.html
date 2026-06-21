@@ -139,9 +139,59 @@
         .hero-section { margin-top: 80px; min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, rgba(15,15,26,0.95) 0%, rgba(22,33,62,0.9) 100%), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920') center/cover; }
         @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .detail-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) { .products-grid { grid-template-columns: 1fr; } .cart-sidebar { width: 100%; right: -100%; } .form-row { grid-template-columns: 1fr; } }
-    </style>
+    
+        /* Language Selector */
+        .lang-selector { display: flex; align-items: center; gap: 0.5rem; }
+        .lang-btn { 
+            padding: 0.3rem 0.8rem; 
+            background: transparent; 
+            border: 1px solid var(--border); 
+            color: var(--text); 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-family: 'Inter', sans-serif; 
+            font-size: 0.8rem; 
+            transition: all 0.3s; 
+        }
+        .lang-btn:hover, .lang-btn.active { 
+            background: var(--primary); 
+            border-color: var(--primary); 
+            color: var(--secondary); 
+        }
+        [dir="rtl"] { direction: rtl; text-align: right; }
+        [dir="rtl"] .header-container { flex-direction: row-reverse; }
+        [dir="rtl"] .header-actions { flex-direction: row-reverse; }
+        [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+        [dir="rtl"] .detail-grid { direction: rtl; }
+        [dir="rtl"] .form-row { direction: rtl; }
+        [dir="rtl"] .cart-item { flex-direction: row-reverse; }
+        [dir="rtl"] .order-item { flex-direction: row-reverse; }
+        [dir="rtl"] .menu-item { flex-direction: row-reverse; text-align: right; }
+        [dir="rtl"] .product-card { text-align: right; }
+        [dir="rtl"] .product-info { text-align: right; }
+        [dir="rtl"] .detail-info { text-align: right; }
+        [dir="rtl"] .features-list li { flex-direction: row-reverse; }
+        [dir="rtl"] .cart-item-info { text-align: right; }
+        [dir="rtl"] .qty-controls { flex-direction: row-reverse; }
+        [dir="rtl"] .order-total { flex-direction: row-reverse; }
+        [dir="rtl"] .cart-total { flex-direction: row-reverse; }
+        [dir="rtl"] .admin-tabs { flex-direction: row-reverse; }
+        [dir="rtl"] .form-group { text-align: right; }
+        [dir="rtl"] .form-group label { text-align: right; }
+        [dir="rtl"] .auth-box { text-align: right; }
+        [dir="rtl"] .auth-card { text-align: right; }
+        [dir="rtl"] .checkout-card { text-align: right; }
+        [dir="rtl"] .order-summary { text-align: right; }
+        [dir="rtl"] .dropdown-menu { right: auto; left: 20px; }
+        [dir="rtl"] .cart-sidebar { right: auto; left: -450px; }
+        [dir="rtl"] .cart-sidebar.open { right: auto; left: 0; }
+        [dir="rtl"] .toast-container { right: auto; left: 2rem; }
+        [dir="rtl"] .hero-section { direction: rtl; }
+        [dir="rtl"] .hero-section h1 { direction: rtl; }
+        [dir="rtl"] .hero-section p { direction: rtl; }
+</style>
 </head>
-<body>
+<body id="appBody">
     <!-- HEADER -->
     <header>
         <div class="header-container">
@@ -153,6 +203,10 @@
             </nav>
             <div class="header-actions">
                 <div id="userBadge" style="display: none;"></div>
+                <div class="lang-selector">
+                    <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+                    <button class="lang-btn" id="btn-ar" onclick="setLanguage('ar')">AR</button>
+                </div>
                 <button class="icon-btn" onclick="toggleCart()"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button>
                 <button class="icon-btn" id="menuTrigger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
             </div>
@@ -934,9 +988,371 @@
         }
 
         // ============================================================
+        // LANGUAGE SYSTEM
+        // ============================================================
+        let currentLang = localStorage.getItem('elif_lang') || 'en';
+
+        const translations = {
+            en: {
+                brand: "ELIF Market",
+                home: "Home",
+                products: "Products",
+                contact: "Contact",
+                heroLabel: "Premium Collection 2026",
+                heroTitle: "Discover Luxury",
+                heroTitle2: "& Style",
+                heroDesc: "Click any product to view details and purchase",
+                shopNow: "Shop Now",
+                explore: "Explore",
+                featured: "Featured Products",
+                clickProduct: "Click any product to view details & payment options",
+                all: "All",
+                electronics: "Electronics",
+                fashion: "Fashion",
+                homeCat: "Home",
+                sports: "Sports",
+                yourCart: "Your Cart",
+                emptyCart: "Your cart is empty",
+                total: "Total:",
+                checkout: "Checkout",
+                addToCart: "Add to Cart",
+                buyNow: "Buy Now",
+                backToProducts: "Back to Products",
+                inStock: "in stock",
+                checkoutTitle: "Checkout",
+                checkoutDesc: "Complete your purchase securely",
+                orderSummary: "Order Summary",
+                shippingInfo: "Shipping Information",
+                payment: "Payment",
+                firstName: "First Name",
+                lastName: "Last Name",
+                email: "Email",
+                phone: "Phone",
+                address: "Address",
+                city: "City",
+                zip: "ZIP Code",
+                cardNumber: "Card Number",
+                expiry: "Expiry Date",
+                cvv: "CVV",
+                placeOrder: "Place Order",
+                continueShopping: "Continue Shopping",
+                login: "Login",
+                register: "Register",
+                signIn: "Sign In",
+                signInBtn: "Sign In",
+                password: "Password",
+                noAccount: "Don't have an account?",
+                hasAccount: "Already have an account?",
+                adminOnly: "Accounts are created by admin only",
+                submitRequest: "Submit Request",
+                requestAccount: "Request Account Creation",
+                adminReview: "Admin will review and approve your request",
+                adminPanel: "Admin Dashboard",
+                manageProducts: "Manage products, users, and orders",
+                addProduct: "Add New Product",
+                productList: "Product List",
+                createUser: "Create User Account",
+                registeredUsers: "Registered Users",
+                allOrders: "All Orders",
+                activityLog: "Activity Log",
+                orderPlaced: "Order Placed!",
+                thankYou: "Thank you for your purchase. You will receive a confirmation email shortly.",
+                orderNumber: "Order Number",
+                totalPaid: "Total Paid",
+                menuAccess: "Menu Access",
+                adminOptions: "Admin Options",
+                logout: "Logout",
+                pinTitle: "Admin Access",
+                pinDesc: "Enter PIN to access admin options",
+                pinCode: "PIN Code",
+                unlock: "Unlock",
+                cancel: "Cancel",
+                invalidPin: "Invalid PIN",
+                freeShipping: "Free Shipping",
+                freeShippingDesc: "On orders over $100",
+                securePayment: "Secure Payment",
+                securePaymentDesc: "100% protected transactions",
+                easyReturns: "Easy Returns",
+                easyReturnsDesc: "30-day return policy",
+                support247: "24/7 Support",
+                support247Desc: "Dedicated assistance"
+            },
+            ar: {
+                brand: "سوق إليف",
+                home: "الرئيسية",
+                products: "المنتجات",
+                contact: "اتصل بنا",
+                heroLabel: "تشكيلة مميزة 2026",
+                heroTitle: "اكتشف الفخامة",
+                heroTitle2: "والأناقة",
+                heroDesc: "اضغط على أي منتج لعرض التفاصيل والشراء",
+                shopNow: "تسوق الآن",
+                explore: "استكشف",
+                featured: "منتجات مميزة",
+                clickProduct: "اضغط على أي منتج لعرض التفاصيل وخيارات الدفع",
+                all: "الكل",
+                electronics: "إلكترونيات",
+                fashion: "أزياء",
+                homeCat: "منزل",
+                sports: "رياضة",
+                yourCart: "سلة التسوق",
+                emptyCart: "سلة التسوق فارغة",
+                total: "الإجمالي:",
+                checkout: "الدفع",
+                addToCart: "أضف للسلة",
+                buyNow: "اشتر الآن",
+                backToProducts: "العودة للمنتجات",
+                inStock: "متوفر في المخزون",
+                checkoutTitle: "إتمام الشراء",
+                checkoutDesc: "أكمل عملية الشراء بأمان",
+                orderSummary: "ملخص الطلب",
+                shippingInfo: "معلومات الشحن",
+                payment: "الدفع",
+                firstName: "الاسم الأول",
+                lastName: "الاسم الأخير",
+                email: "البريد الإلكتروني",
+                phone: "الهاتف",
+                address: "العنوان",
+                city: "المدينة",
+                zip: "الرمز البريدي",
+                cardNumber: "رقم البطاقة",
+                expiry: "تاريخ الانتهاء",
+                cvv: "CVV",
+                placeOrder: "تأكيد الطلب",
+                continueShopping: "مواصلة التسوق",
+                login: "تسجيل الدخول",
+                register: "إنشاء حساب",
+                signIn: "تسجيل الدخول",
+                signInBtn: "دخول",
+                password: "كلمة المرور",
+                noAccount: "ليس لديك حساب؟",
+                hasAccount: "لديك حساب بالفعل؟",
+                adminOnly: "يتم إنشاء الحسابات بواسطة المشرف فقط",
+                submitRequest: "إرسال الطلب",
+                requestAccount: "طلب إنشاء حساب",
+                adminReview: "سيقوم المشرف بمراجعة طلبك والموافقة عليه",
+                adminPanel: "لوحة التحكم",
+                manageProducts: "إدارة المنتجات والمستخدمين والطلبات",
+                addProduct: "إضافة منتج جديد",
+                productList: "قائمة المنتجات",
+                createUser: "إنشاء حساب مستخدم",
+                registeredUsers: "المستخدمون المسجلون",
+                allOrders: "جميع الطلبات",
+                activityLog: "سجل النشاطات",
+                orderPlaced: "تم تأكيد الطلب!",
+                thankYou: "شكراً لشرائك. ستتلقى رسالة تأكيد عبر البريد الإلكتروني قريباً.",
+                orderNumber: "رقم الطلب",
+                totalPaid: "المبلغ المدفوع",
+                menuAccess: "القائمة",
+                adminOptions: "خيارات المشرف",
+                logout: "تسجيل الخروج",
+                pinTitle: "دخول المشرف",
+                pinDesc: "أدخل رمز PIN للوصول إلى خيارات المشرف",
+                pinCode: "رمز PIN",
+                unlock: "فتح",
+                cancel: "إلغاء",
+                invalidPin: "رمز PIN غير صحيح",
+                freeShipping: "شحن مجاني",
+                freeShippingDesc: "للطلبات فوق 100 دولار",
+                securePayment: "دفع آمن",
+                securePaymentDesc: "معاملات محمية 100%",
+                easyReturns: "إرجاع سهل",
+                easyReturnsDesc: "سياسة إرجاع 30 يوماً",
+                support247: "دعم على مدار الساعة",
+                support247Desc: "مساعدة مخصصة"
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('elif_lang', lang);
+            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.body.setAttribute('lang', lang);
+
+            // Update buttons
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+
+            // Update all text content
+            updatePageText();
+            showToast(lang === 'ar' ? 'تم تغيير اللغة إلى العربية' : 'Language changed to English', 'success');
+        }
+
+        function updatePageText() {
+            const t = translations[currentLang];
+
+            // Header
+            document.querySelector('.brand').textContent = t.brand;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            if (navLinks[0]) navLinks[0].textContent = t.home;
+            if (navLinks[1]) navLinks[1].textContent = t.products;
+            if (navLinks[2]) navLinks[2].textContent = t.contact;
+
+            // Hero
+            const heroSpan = document.querySelector('.hero-section span');
+            if (heroSpan) heroSpan.textContent = t.heroLabel;
+            const heroH1 = document.querySelector('.hero-section h1');
+            if (heroH1) {
+                heroH1.innerHTML = t.heroTitle + ' <span style="color: var(--primary);">' + t.heroTitle2 + '</span>';
+            }
+            const heroP = document.querySelector('.hero-section p');
+            if (heroP) heroP.textContent = t.heroDesc;
+
+            // Hero buttons
+            const heroButtons = document.querySelectorAll('.hero-section button');
+            if (heroButtons[0]) heroButtons[0].innerHTML = '<i class="fas fa-shopping-bag"></i> ' + t.shopNow;
+            if (heroButtons[1]) heroButtons[1].textContent = t.explore;
+
+            // Products section
+            const productsH2 = document.querySelector('#products h2');
+            if (productsH2) productsH2.textContent = t.featured;
+            const productsP = document.querySelector('#products p');
+            if (productsP) productsP.textContent = t.clickProduct;
+
+            // Filter buttons
+            const btnAll = document.getElementById('btn-all');
+            if (btnAll) btnAll.textContent = t.all;
+            const btnElectronics = document.getElementById('btn-electronics');
+            if (btnElectronics) btnElectronics.textContent = t.electronics;
+            const btnFashion = document.getElementById('btn-fashion');
+            if (btnFashion) btnFashion.textContent = t.fashion;
+            const btnHome = document.getElementById('btn-home');
+            if (btnHome) btnHome.textContent = t.homeCat;
+            const btnSports = document.getElementById('btn-sports');
+            if (btnSports) btnSports.textContent = t.sports;
+
+            // Cart
+            const cartHeader = document.querySelector('.cart-header h3');
+            if (cartHeader) cartHeader.innerHTML = '<i class="fas fa-shopping-bag"></i> ' + t.yourCart;
+            const cartEmpty = document.querySelector('.cart-items p');
+            if (cartEmpty) cartEmpty.innerHTML = '<i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.3; display: block; margin-bottom: 1rem;"></i>' + t.emptyCart;
+            const cartTotal = document.querySelector('.cart-total');
+            if (cartTotal) cartTotal.innerHTML = '<span>' + t.total + '</span><span id="cartTotal">$0.00</span>';
+            const cartCheckout = document.querySelector('.cart-footer button');
+            if (cartCheckout) cartCheckout.innerHTML = '<i class="fas fa-credit-card"></i> ' + t.checkout;
+
+            // Product detail
+            const addToCartBtn = document.querySelector('.detail-info .btn');
+            if (addToCartBtn) addToCartBtn.innerHTML = '<i class="fas fa-shopping-bag"></i> ' + t.addToCart;
+            const buyNowBtn = document.querySelector('.detail-info .btn-outline');
+            if (buyNowBtn) buyNowBtn.innerHTML = '<i class="fas fa-credit-card"></i> ' + t.buyNow;
+            const backBtn = document.querySelector('.detail-info .btn-sm');
+            if (backBtn) backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> ' + t.backToProducts;
+
+            // Checkout
+            const checkoutH2 = document.querySelector('.checkout-card h2');
+            if (checkoutH2) checkoutH2.innerHTML = '<i class="fas fa-credit-card" style="color: var(--primary);"></i> ' + t.checkoutTitle;
+            const checkoutP = document.querySelector('.checkout-card > p');
+            if (checkoutP) checkoutP.textContent = t.checkoutDesc;
+            const orderSummaryH3 = document.querySelector('.order-summary h3');
+            if (orderSummaryH3) orderSummaryH3.innerHTML = '<i class="fas fa-shopping-bag" style="color: var(--primary);"></i> ' + t.orderSummary;
+            const orderTotal = document.querySelector('.order-total');
+            if (orderTotal) orderTotal.innerHTML = '<span>' + t.total + '</span><span id="checkoutTotal" style="color: var(--primary);">$0.00</span>';
+            const shippingH3 = document.querySelectorAll('.checkout-card h3')[1];
+            if (shippingH3) shippingH3.innerHTML = '<i class="fas fa-truck" style="color: var(--primary);"></i> ' + t.shippingInfo;
+            const paymentH3 = document.querySelectorAll('.checkout-card h3')[2];
+            if (paymentH3) paymentH3.innerHTML = '<i class="fas fa-credit-card" style="color: var(--primary);"></i> ' + t.payment;
+
+            // Form labels
+            const labels = document.querySelectorAll('.checkout-card label');
+            if (labels[0]) labels[0].textContent = t.firstName + ' *';
+            if (labels[1]) labels[1].textContent = t.lastName + ' *';
+            if (labels[2]) labels[2].textContent = t.email + ' *';
+            if (labels[3]) labels[3].textContent = t.phone + ' *';
+            if (labels[4]) labels[4].textContent = t.address + ' *';
+            if (labels[5]) labels[5].textContent = t.city + ' *';
+            if (labels[6]) labels[6].textContent = t.zip + ' *';
+            if (labels[7]) labels[7].textContent = t.cardNumber + ' *';
+            if (labels[8]) labels[8].textContent = t.expiry + ' *';
+            if (labels[9]) labels[9].textContent = t.cvv + ' *';
+
+            const placeOrderBtn = document.querySelector('.checkout-card .btn-lg');
+            if (placeOrderBtn) placeOrderBtn.innerHTML = '<i class="fas fa-lock"></i> ' + t.placeOrder;
+            const continueBtn = document.querySelectorAll('.checkout-card .btn-outline')[1];
+            if (continueBtn) continueBtn.innerHTML = '<i class="fas fa-arrow-left"></i> ' + t.continueShopping;
+
+            // Login
+            const loginBrand = document.querySelector('#loginPage .brand');
+            if (loginBrand) loginBrand.innerHTML = '<i class="fas fa-user-circle" style="color: var(--primary);"></i>';
+            const loginSubtitle = document.querySelector('#loginPage .subtitle');
+            if (loginSubtitle) loginSubtitle.textContent = t.signIn;
+            const loginLabels = document.querySelectorAll('#loginPage label');
+            if (loginLabels[0]) loginLabels[0].innerHTML = '<i class="fas fa-envelope" style="color: var(--primary);"></i> ' + t.email;
+            if (loginLabels[1]) loginLabels[1].innerHTML = '<i class="fas fa-lock" style="color: var(--primary);"></i> ' + t.password;
+            const loginBtn = document.querySelector('#loginPage .btn-block');
+            if (loginBtn) loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> ' + t.signInBtn;
+            const loginP = document.querySelector('#loginPage p');
+            if (loginP) loginP.innerHTML = t.noAccount + ' <a href="#" class="auth-link" onclick="showRegister(); return false;">' + t.register + '</a>';
+            const loginInfo = document.querySelectorAll('#loginPage div')[4];
+            if (loginInfo) loginInfo.innerHTML = '<i class="fas fa-info-circle"></i> ' + t.adminOnly;
+            const loginBack = document.querySelectorAll('#loginPage .btn-outline')[1];
+            if (loginBack) loginBack.innerHTML = '<i class="fas fa-arrow-left"></i> ' + t.backToProducts;
+
+            // Register
+            const regSubtitle = document.querySelector('#registerPage .subtitle');
+            if (regSubtitle) regSubtitle.textContent = t.requestAccount;
+            const regLabels = document.querySelectorAll('#registerPage label');
+            if (regLabels[0]) regLabels[0].innerHTML = '<i class="fas fa-envelope" style="color: var(--primary);"></i> ' + t.email;
+            if (regLabels[1]) regLabels[1].innerHTML = '<i class="fas fa-user" style="color: var(--primary);"></i> ' + 'الاسم الكامل';
+            if (regLabels[2]) regLabels[2].innerHTML = '<i class="fas fa-lock" style="color: var(--primary);"></i> ' + t.password;
+            const regBtn = document.querySelector('#registerPage .btn-block');
+            if (regBtn) regBtn.innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.submitRequest;
+            const regP = document.querySelector('#registerPage p');
+            if (regP) regP.innerHTML = t.hasAccount + ' <a href="#" class="auth-link" onclick="showLogin(); return false;">' + t.login + '</a>';
+            const regInfo = document.querySelectorAll('#registerPage div')[4];
+            if (regInfo) regInfo.innerHTML = '<i class="fas fa-info-circle"></i> ' + t.adminReview;
+            const regBack = document.querySelectorAll('#registerPage .btn-outline')[1];
+            if (regBack) regBack.innerHTML = '<i class="fas fa-arrow-left"></i> ' + t.backToProducts;
+
+            // Menu
+            const menuStatus = document.querySelector('.menu-status');
+            if (menuStatus) menuStatus.innerHTML = '<i class="fas fa-shield-alt"></i> ' + t.menuAccess;
+            const menuItems = document.querySelectorAll('.menu-item');
+            if (menuItems[0]) menuItems[0].innerHTML = '<i class="fas fa-sign-in-alt"></i> ' + t.login;
+            if (menuItems[1]) menuItems[1].innerHTML = '<i class="fas fa-user-plus"></i> ' + t.register;
+            if (menuItems[2]) menuItems[2].innerHTML = '<i class="fas fa-cog"></i> ' + 'Admin Panel';
+            if (menuItems[3]) menuItems[3].innerHTML = '<i class="fas fa-edit"></i> ' + 'Edit Website';
+            if (menuItems[4]) menuItems[4].innerHTML = '<i class="fas fa-sign-out-alt"></i> ' + t.logout;
+
+            // PIN Modal
+            const pinBrand = document.querySelector('#pinModal .brand');
+            if (pinBrand) pinBrand.innerHTML = '<i class="fas fa-lock"></i> ' + t.pinTitle;
+            const pinSubtitle = document.querySelector('#pinModal .subtitle');
+            if (pinSubtitle) pinSubtitle.textContent = t.pinDesc;
+            const pinLabel = document.querySelector('#pinModal label');
+            if (pinLabel) pinLabel.innerHTML = '<i class="fas fa-key" style="color: var(--primary);"></i> ' + t.pinCode;
+            const pinBtn = document.querySelector('#pinModal .btn-block');
+            if (pinBtn) pinBtn.innerHTML = '<i class="fas fa-unlock"></i> ' + t.unlock;
+            const pinSecurity = document.querySelector('#pinModal .security-badge');
+            if (pinSecurity) pinSecurity.innerHTML = '<i class="fas fa-shield-alt"></i><span>' + t.adminOptions + '</span>';
+            const pinCancel = document.querySelector('#pinModal .cancel-btn');
+            if (pinCancel) pinCancel.textContent = t.cancel;
+
+            // Success Modal
+            const successBrand = document.querySelector('#successModal .brand');
+            if (successBrand) successBrand.textContent = t.orderPlaced;
+            const successSubtitle = document.querySelector('#successModal .subtitle');
+            if (successSubtitle) successSubtitle.textContent = t.thankYou;
+            const successBtn = document.querySelector('#successModal .btn-block');
+            if (successBtn) successBtn.textContent = t.continueShopping;
+
+            // Admin
+            const adminH2 = document.querySelector('.admin-panel h2');
+            if (adminH2) adminH2.innerHTML = '<i class="fas fa-cog" style="color: var(--primary);"></i> ' + t.adminPanel;
+            const adminP = document.querySelector('.admin-panel > p');
+            if (adminP) adminP.textContent = t.manageProducts;
+
+            // Re-render products to update any text
+            renderProducts();
+            updateCartUI();
+        }
+
+        // ============================================================
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
+            // Set initial language
+            setLanguage(currentLang);
             updateUserBadge();
             showHome();
         });
