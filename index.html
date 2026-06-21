@@ -3,600 +3,552 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELIF Market - PIN Protected</title>
+    <title>ELIF Market - Click Product for Details & Payment</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #c9a962;
-            --primary-dark: #b8944f;
-            --secondary: #1a1a2e;
-            --accent: #16213e;
-            --text: #e8e8e8;
-            --text-muted: #a0a0a0;
-            --bg: #0f0f1a;
-            --card-bg: rgba(255,255,255,0.05);
-            --border: rgba(255,255,255,0.1);
-            --success: #4ade80;
-            --danger: #f87171;
-            --warning: #fbbf24;
-            --info: #60a5fa;
-        }
+        :root { --primary: #c9a962; --primary-dark: #b8944f; --secondary: #1a1a2e; --accent: #16213e; --text: #e8e8e8; --text-muted: #a0a0a0; --bg: #0f0f1a; --card-bg: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --success: #4ade80; --danger: #f87171; --warning: #fbbf24; --info: #60a5fa; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
         h1, h2, h3, h4, .brand { font-family: 'Playfair Display', serif; }
-
-        /* PIN Modal */
-        .pin-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.88);
-            backdrop-filter: blur(20px);
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        .pin-modal.active { display: flex; }
-        .pin-box {
-            background: var(--secondary);
-            border: 1px solid rgba(201,169,98,0.3);
-            border-radius: 16px;
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 380px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
-            text-align: center;
-            animation: slideUp 0.4s ease;
-        }
-        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        .shake { animation: shake 0.5s ease; }
-        .pin-box .brand { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
-        .pin-box .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
-        .pin-error {
-            background: rgba(248,113,113,0.1);
-            border: 1px solid rgba(248,113,113,0.3);
-            color: var(--danger);
-            padding: 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-        .pin-error.show { display: block; }
-        .pin-attempts {
-            color: var(--warning);
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-        .form-group { margin-bottom: 1.2rem; text-align: left; }
-        .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 500; }
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            font-size: 1.5rem;
-            text-align: center;
-            letter-spacing: 0.5rem;
-            transition: all 0.3s;
-        }
-        .form-group input:focus { outline: none; border-color: var(--primary); }
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--primary);
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s;
-            border: 2px solid var(--primary);
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            width: 100%;
-        }
-        .btn:hover { background: transparent; color: var(--primary); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .security-badge {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        .cancel-btn {
-            margin-top: 1rem;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.85rem;
-            text-decoration: underline;
-        }
-
-        /* Header */
-        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(15,15,26,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(15,15,26,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
         .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .brand { font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: var(--primary); }
         .header-actions { display: flex; gap: 1rem; align-items: center; }
-        .icon-btn {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-        }
+        .icon-btn { background: none; border: none; color: var(--text); font-size: 1.2rem; cursor: pointer; position: relative; transition: all 0.3s; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
         .icon-btn:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
-        .icon-btn.active { color: var(--primary); }
-        .badge-count {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: var(--primary);
-            color: var(--secondary);
-            font-size: 0.7rem;
-            font-weight: 700;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Dropdown Menu */
-        .dropdown-menu {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background: var(--secondary);
-            border: 1px solid rgba(201,169,98,0.3);
-            border-radius: 12px;
-            padding: 0.5rem;
-            z-index: 9999;
-            min-width: 220px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            display: none;
-            animation: menuSlide 0.3s ease;
-        }
+        .badge-count { position: absolute; top: -2px; right: -2px; background: var(--primary); color: var(--secondary); font-size: 0.7rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .user-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(96,165,250,0.15); border: 1px solid var(--info); border-radius: 20px; color: var(--info); font-size: 0.8rem; font-weight: 600; }
+        .admin-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(201,169,98,0.15); border: 1px solid var(--primary); border-radius: 20px; color: var(--primary); font-size: 0.8rem; font-weight: 600; }
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: var(--primary); color: var(--secondary); text-decoration: none; font-weight: 600; border-radius: 8px; transition: all 0.3s; border: 2px solid var(--primary); cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.95rem; }
+        .btn:hover { background: transparent; color: var(--primary); transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: var(--secondary); }
+        .btn-danger { background: var(--danger); border-color: var(--danger); color: white; }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-block { width: 100%; }
+        .btn-lg { padding: 1.2rem 3rem; font-size: 1.1rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 500; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.9rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: all 0.3s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .auth-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(20px); z-index: 99999; display: none; align-items: center; justify-content: center; }
+        .auth-modal.active { display: flex; }
+        .auth-box { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; width: 90%; max-width: 420px; box-shadow: 0 25px 80px rgba(0,0,0,0.6); }
+        .auth-box .brand { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; text-align: center; display: block; }
+        .auth-box .subtitle { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+        .auth-error { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3); color: var(--danger); padding: 0.8rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
+        .auth-error.show { display: block; }
+        .auth-success { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: var(--success); padding: 0.8rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
+        .auth-success.show { display: block; }
+        .security-badge { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .dropdown-menu { position: fixed; top: 70px; right: 20px; background: var(--secondary); border: 1px solid rgba(201,169,98,0.3); border-radius: 12px; padding: 0.5rem; z-index: 9999; min-width: 220px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); display: none; animation: menuSlide 0.3s ease; }
         .dropdown-menu.active { display: block; }
-        @keyframes menuSlide {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .menu-status {
-            text-align: center;
-            padding: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--success);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 0.5rem;
-        }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 1rem;
-            color: var(--text);
-            text-decoration: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-        }
+        @keyframes menuSlide { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .menu-status { text-align: center; padding: 0.5rem; font-size: 0.75rem; color: var(--success); border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; }
+        .menu-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1rem; color: var(--text); border-radius: 8px; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; font-size: 0.9rem; border: none; background: none; width: 100%; text-align: left; text-decoration: none; }
         .menu-item:hover { background: rgba(201,169,98,0.1); color: var(--primary); }
         .menu-item i { width: 20px; text-align: center; color: var(--primary); }
         .menu-divider { height: 1px; background: var(--border); margin: 0.5rem 0; }
         .menu-logout { color: var(--danger) !important; }
         .menu-logout i { color: var(--danger) !important; }
         .menu-logout:hover { background: rgba(248,113,113,0.1) !important; }
-
-        /* Toast */
-        .toast-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 100000;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .toast {
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: toastSlide 0.3s ease;
-        }
+        .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 100000; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast { padding: 1rem 1.5rem; border-radius: 8px; color: white; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: toastSlide 0.3s ease; }
         .toast.success { background: var(--success); color: var(--secondary); }
         .toast.error { background: var(--danger); }
         .toast.info { background: var(--info); }
-        @keyframes toastSlide {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Hero */
-        .hero { margin-top: 80px; min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, rgba(15,15,26,0.95) 0%, rgba(22,33,62,0.9) 100%), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920') center/cover; position: relative; }
-        .hero-content { max-width: 800px; padding: 2rem; }
-        .hero-label { display: inline-block; padding: 0.5rem 1.5rem; border: 1px solid var(--primary); color: var(--primary); font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
-        .hero h1 { font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
-        .hero h1 span { color: var(--primary); }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; }
-        .btn-outline { background: transparent; color: var(--primary); margin-left: 1rem; }
-        .btn-outline:hover { background: var(--primary); color: var(--secondary); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            #productsGrid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        @media (max-width: 768px) {
-            #productsGrid { grid-template-columns: 1fr !important; }
-            .hero h1 { font-size: 2.5rem; }
-            .dropdown-menu { right: 10px; left: 10px; width: auto; }
-        }
+        @keyframes toastSlide { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.3s; cursor: pointer; }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .product-image { position: relative; height: 280px; overflow: hidden; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .product-image img { transform: scale(1.05); }
+        .product-badge { position: absolute; top: 1rem; left: 1rem; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .badge-sale { background: var(--danger); color: white; }
+        .badge-new { background: var(--success); color: var(--secondary); }
+        .badge-hot { background: var(--warning); color: var(--secondary); }
+        .product-info { padding: 1.5rem; }
+        .product-category { font-size: 0.8rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .product-name { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .product-price { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .price-current { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+        .price-original { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; }
+        .product-detail { margin-top: 80px; padding: 3rem 2rem; max-width: 1400px; margin-left: auto; margin-right: auto; display: none; }
+        .product-detail.active { display: block; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .detail-image { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+        .detail-image img { width: 100%; height: 500px; object-fit: cover; }
+        .detail-info h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .detail-info .category { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 1rem; }
+        .detail-info .price { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .detail-info .price-original { font-size: 1.3rem; color: var(--text-muted); text-decoration: line-through; margin-left: 1rem; }
+        .detail-info .description { color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; font-size: 1rem; }
+        .features-list { list-style: none; margin-bottom: 2rem; }
+        .features-list li { display: flex; align-items: center; gap: 0.8rem; padding: 0.5rem 0; color: var(--text-muted); }
+        .features-list li i { color: var(--success); }
+        .stock-status { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); border-radius: 20px; color: var(--success); font-size: 0.85rem; margin-bottom: 2rem; }
+        .cart-sidebar { position: fixed; top: 0; right: -450px; width: 450px; height: 100vh; background: var(--secondary); z-index: 2000; transition: right 0.4s ease; border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+        .cart-sidebar.open { right: 0; }
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .cart-overlay.open { opacity: 1; visibility: visible; }
+        .cart-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .cart-items { flex: 1; overflow-y: auto; padding: 1rem; }
+        .cart-item { display: flex; gap: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border); }
+        .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-info h4 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+        .cart-item-info p { color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; }
+        .qty-controls { display: flex; align-items: center; gap: 0.5rem; }
+        .qty-btn { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:hover { background: var(--primary); color: var(--secondary); }
+        .remove-item { color: var(--danger); background: none; border: none; cursor: pointer; font-size: 0.9rem; margin-left: auto; }
+        .cart-footer { padding: 1.5rem; border-top: 1px solid var(--border); }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+        .cart-total span { color: var(--primary); }
+        .checkout-section { margin-top: 80px; padding: 3rem 2rem; max-width: 800px; margin-left: auto; margin-right: auto; display: none; }
+        .checkout-section.active { display: block; }
+        .checkout-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+        .order-summary { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        .order-item { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
+        .order-item:last-child { border-bottom: none; }
+        .order-total { display: flex; justify-content: space-between; padding-top: 1rem; border-top: 2px solid var(--primary); margin-top: 1rem; font-size: 1.2rem; font-weight: 700; }
+        .auth-page { margin-top: 80px; min-height: 90vh; display: flex; align-items: center; justify-content: center; padding: 2rem; display: none; }
+        .auth-page.active { display: flex; }
+        .auth-card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; width: 100%; max-width: 450px; box-shadow: 0 25px 80px rgba(0,0,0,0.5); }
+        .auth-card .brand { font-size: 2rem; text-align: center; margin-bottom: 0.5rem; }
+        .auth-card .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 2rem; }
+        .auth-link { color: var(--primary); text-decoration: none; }
+        .auth-link:hover { text-decoration: underline; }
+        .admin-panel { margin-top: 80px; padding: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto; display: none; }
+        .admin-panel.active { display: block; }
+        .admin-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .admin-tab-btn { padding: 0.6rem 1.5rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 30px; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; }
+        .admin-tab-btn:hover, .admin-tab-btn.active { background: var(--primary); border-color: var(--primary); color: var(--secondary); }
+        .admin-content { display: none; }
+        .admin-content.active { display: block; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        .data-table th { color: var(--primary); font-weight: 600; }
+        .data-table tr:hover { background: var(--card-bg); }
+        .hero-section { margin-top: 80px; min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, rgba(15,15,26,0.95) 0%, rgba(22,33,62,0.9) 100%), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920') center/cover; }
+        @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .detail-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .products-grid { grid-template-columns: 1fr; } .cart-sidebar { width: 100%; right: -100%; } .form-row { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <!-- PIN Modal -->
-    <div id="pinModal" class="pin-modal">
-        <div class="pin-box" id="pinBox">
-            <div class="brand"><i class="fas fa-lock" style="margin-right: 0.5rem;"></i>ELIF Market</div>
-            <p class="subtitle">Enter PIN to access admin options</p>
-            <div id="pinError" class="pin-error"></div>
-            <div id="pinAttempts" class="pin-attempts">Attempts remaining: <span id="attemptsCount">5</span></div>
-            <form id="pinForm" onsubmit="return false;">
-                <div class="form-group">
-                    <label><i class="fas fa-key" style="margin-right: 0.3rem; color: var(--primary);"></i>PIN Code</label>
-                    <input type="password" id="pinInput" required placeholder="•••••••" maxlength="10" autocomplete="off">
-                </div>
-                <button type="submit" class="btn" id="pinSubmit"><i class="fas fa-unlock" style="margin-right: 0.5rem;"></i>Unlock</button>
-            </form>
-            <div class="security-badge"><i class="fas fa-shield-alt" style="color: var(--primary);"></i><span>Protected menu access</span></div>
-            <button class="cancel-btn" onclick="closePinModal()">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Header -->
+    <!-- HEADER -->
     <header>
         <div class="header-container">
-            <a href="#" class="brand">ELIF Market</a>
+            <a href="#" class="brand" onclick="showHome(); return false;">ELIF Market</a>
+            <nav class="nav-links">
+                <a onclick="showHome()">Home</a>
+                <a onclick="showHome()">Products</a>
+                <a onclick="showContact()">Contact</a>
+            </nav>
             <div class="header-actions">
-                <button class="icon-btn" onclick="toggleCart()"><i class="fas fa-shopping-bag"></i><span class="badge-count">0</span></button>
-                <button class="icon-btn" id="menuTrigger" onclick="handleMenuClick()"><i class="fas fa-bars"></i></button>
+                <div id="userBadge" style="display: none;"></div>
+                <button class="icon-btn" onclick="toggleCart()"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button>
+                <button class="icon-btn" id="menuTrigger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- Dropdown Menu -->
+    <!-- DROPDOWN MENU -->
     <div id="dropdownMenu" class="dropdown-menu">
-        <div class="menu-status"><i class="fas fa-shield-alt"></i> Admin Access Active</div>
-        <button class="menu-item" onclick="menuAction('login')"><i class="fas fa-sign-in-alt"></i> Login</button>
-        <button class="menu-item" onclick="menuAction('admin')"><i class="fas fa-cog"></i> Admin Panel</button>
-        <button class="menu-item" onclick="menuAction('edit')"><i class="fas fa-edit"></i> Edit Website</button>
+        <div class="menu-status"><i class="fas fa-shield-alt"></i> Menu Access</div>
+        <a href="#" class="menu-item" onclick="showLogin(); return false;"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="#" class="menu-item" onclick="showRegister(); return false;"><i class="fas fa-user-plus"></i> Register</a>
         <div class="menu-divider"></div>
-        <button class="menu-item menu-logout" onclick="menuAction('logout')"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <button class="menu-item" onclick="showPinModal()"><i class="fas fa-cog"></i> Admin Panel</button>
+        <button class="menu-item" onclick="showPinModal()"><i class="fas fa-edit"></i> Edit Website</button>
+        <div class="menu-divider"></div>
+        <button class="menu-item menu-logout" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-label">Premium Collection 2026</span>
-            <h1>Discover Luxury <span>& Style</span></h1>
-            <p>Curated selection of premium products for the modern lifestyle</p>
-            <a href="#" class="btn">Shop Now</a>
-            <a href="#" class="btn btn-outline">Explore</a>
+    <!-- HOME PAGE (Products Grid) -->
+    <div id="homePage" style="display: block;">
+        <section class="hero-section">
+            <div style="max-width: 800px; padding: 2rem;">
+                <span style="display: inline-block; padding: 0.5rem 1.5rem; border: 1px solid var(--primary); color: var(--primary); font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;">Premium Collection 2026</span>
+                <h1 style="font-size: 4rem; margin-bottom: 1rem; line-height: 1.1;">Discover Luxury <span style="color: var(--primary);">& Style</span></h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem;">Click any product to view details and purchase</p>
+                <button class="btn" onclick="scrollToProducts()">Shop Now</button>
+                <button class="btn btn-outline" onclick="scrollToProducts()" style="margin-left: 1rem;">Explore</button>
+            </div>
+        </section>
+
+        <section id="products" style="padding: 5rem 2rem; max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0.5rem;">Featured Products</h2>
+                <p style="color: var(--text-muted);">Click any product to view details & payment options</p>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                <button class="btn btn-sm" onclick="filterProducts('all')" id="btn-all" style="background: var(--primary); color: var(--secondary); border-color: var(--primary);">All</button>
+                <button class="btn btn-sm btn-outline" onclick="filterProducts('electronics')" id="btn-electronics" style="margin-left: 0;">Electronics</button>
+                <button class="btn btn-sm btn-outline" onclick="filterProducts('fashion')" id="btn-fashion" style="margin-left: 0;">Fashion</button>
+                <button class="btn btn-sm btn-outline" onclick="filterProducts('home')" id="btn-home" style="margin-left: 0;">Home</button>
+                <button class="btn btn-sm btn-outline" onclick="filterProducts('sports')" id="btn-sports" style="margin-left: 0;">Sports</button>
+            </div>
+            <div class="products-grid" id="productsGrid"></div>
+        </section>
+    </div>
+
+    <!-- PRODUCT DETAIL PAGE -->
+    <div id="detailPage" class="product-detail">
+        <div class="detail-grid">
+            <div class="detail-image">
+                <img id="detailImage" src="" alt="">
+            </div>
+            <div class="detail-info">
+                <div class="category" id="detailCategory"></div>
+                <h1 id="detailName"></h1>
+                <div class="price">
+                    <span id="detailPrice"></span>
+                    <span class="price-original" id="detailOriginalPrice"></span>
+                </div>
+                <div class="stock-status" id="detailStock"><i class="fas fa-check-circle"></i> <span></span> in stock</div>
+                <p class="description" id="detailDescription"></p>
+                <ul class="features-list" id="detailFeatures"></ul>
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <button class="btn btn-lg" onclick="addToCartFromDetail()"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    <button class="btn btn-outline btn-lg" onclick="buyNowFromDetail()" style="margin-left: 0;"><i class="fas fa-credit-card"></i> Buy Now</button>
+                </div>
+                <button class="btn btn-sm btn-outline" onclick="showHome()" style="margin-left: 0;"><i class="fas fa-arrow-left"></i> Back to Products</button>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Products Section - PUBLIC, no PIN required -->
-    <section id="products" style="padding: 5rem 2rem; max-width: 1400px; margin: 0 auto;">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0.5rem;">Featured Products</h2>
-            <p style="color: var(--text-muted);">Handpicked for exceptional quality</p>
+    <!-- CHECKOUT PAGE -->
+    <div id="checkoutPage" class="checkout-section">
+        <div class="checkout-card">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-credit-card" style="color: var(--primary);"></i> Checkout</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Complete your purchase securely</p>
+
+            <div class="order-summary">
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; margin-bottom: 1rem;"><i class="fas fa-shopping-bag" style="color: var(--primary);"></i> Order Summary</h3>
+                <div id="checkoutItems"></div>
+                <div class="order-total"><span>Total:</span><span id="checkoutTotal" style="color: var(--primary);">$0.00</span></div>
+            </div>
+
+            <form id="checkoutForm" onsubmit="return false;">
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; margin-bottom: 1.5rem;"><i class="fas fa-truck" style="color: var(--primary);"></i> Shipping Information</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>First Name *</label><input type="text" id="shipFirstName" required></div>
+                    <div class="form-group"><label>Last Name *</label><input type="text" id="shipLastName" required></div>
+                </div>
+                <div class="form-group"><label>Email *</label><input type="email" id="shipEmail" required></div>
+                <div class="form-group"><label>Phone *</label><input type="tel" id="shipPhone" required></div>
+                <div class="form-group"><label>Address *</label><input type="text" id="shipAddress" required></div>
+                <div class="form-row">
+                    <div class="form-group"><label>City *</label><input type="text" id="shipCity" required></div>
+                    <div class="form-group"><label>ZIP Code *</label><input type="text" id="shipZip" required></div>
+                </div>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; margin: 2rem 0 1.5rem;"><i class="fas fa-credit-card" style="color: var(--primary);"></i> Payment</h3>
+                <div class="form-group"><label>Card Number *</label><input type="text" id="cardNumber" placeholder="**** **** **** ****" maxlength="19" required></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Expiry Date *</label><input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required></div>
+                    <div class="form-group"><label>CVV *</label><input type="text" id="cardCVV" placeholder="***" maxlength="3" required></div>
+                </div>
+
+                <button type="submit" class="btn btn-block btn-lg" onclick="placeOrder()" style="margin-top: 1rem;"><i class="fas fa-lock"></i> Place Order</button>
+                <button type="button" class="btn btn-outline btn-block btn-sm" onclick="showHome()" style="margin-top: 0.5rem; margin-left: 0;"><i class="fas fa-arrow-left"></i> Continue Shopping</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="auth-page">
+        <div class="auth-card">
+            <div class="brand"><i class="fas fa-user-circle" style="color: var(--primary);"></i></div>
+            <p class="subtitle">Sign in to your account</p>
+            <div id="loginError" class="auth-error"></div>
+            <form id="loginForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope" style="color: var(--primary);"></i> Email</label>
+                    <input type="email" id="loginEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock" style="color: var(--primary);"></i> Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Your password">
+                </div>
+                <button type="submit" class="btn btn-block" onclick="doLogin()" style="margin-top: 1rem;"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                Don't have an account? <a href="#" class="auth-link" onclick="showRegister(); return false;">Register</a>
+            </p>
+            <div style="margin-top: 1rem; padding: 1rem; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); border-radius: 8px; font-size: 0.85rem; color: var(--warning); text-align: center;">
+                <i class="fas fa-info-circle"></i> Accounts are created by admin only
+            </div>
+            <button class="btn btn-outline btn-block btn-sm" onclick="showHome()" style="margin-top: 1rem; margin-left: 0;"><i class="fas fa-arrow-left"></i> Back to Store</button>
+        </div>
+    </div>
+
+    <!-- REGISTER PAGE -->
+    <div id="registerPage" class="auth-page">
+        <div class="auth-card">
+            <div class="brand"><i class="fas fa-user-plus" style="color: var(--primary);"></i></div>
+            <p class="subtitle">Request Account Creation</p>
+            <div id="regError" class="auth-error"></div>
+            <div id="regSuccess" class="auth-success"></div>
+            <form id="registerForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope" style="color: var(--primary);"></i> Email</label>
+                    <input type="email" id="regEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user" style="color: var(--primary);"></i> Full Name</label>
+                    <input type="text" id="regName" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock" style="color: var(--primary);"></i> Password</label>
+                    <input type="password" id="regPassword" required placeholder="Choose a password">
+                </div>
+                <button type="submit" class="btn btn-block" onclick="doRegister()" style="margin-top: 1rem;"><i class="fas fa-paper-plane"></i> Submit Request</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                Already have an account? <a href="#" class="auth-link" onclick="showLogin(); return false;">Sign In</a>
+            </p>
+            <div style="margin-top: 1rem; padding: 1rem; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); border-radius: 8px; font-size: 0.85rem; color: var(--warning); text-align: center;">
+                <i class="fas fa-info-circle"></i> Admin will review and approve your request
+            </div>
+            <button class="btn btn-outline btn-block btn-sm" onclick="showHome()" style="margin-top: 1rem; margin-left: 0;"><i class="fas fa-arrow-left"></i> Back to Store</button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminPage" class="admin-panel">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-cog" style="color: var(--primary);"></i> Admin Dashboard</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Manage products, users, and orders</p>
+
+        <div class="admin-tabs">
+            <button class="admin-tab-btn active" onclick="switchAdminTab('products')" id="tabbtn-products"><i class="fas fa-box"></i> Products</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('users')" id="tabbtn-users"><i class="fas fa-users"></i> Users</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('orders')" id="tabbtn-orders"><i class="fas fa-shopping-cart"></i> Orders</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('logs')" id="tabbtn-logs"><i class="fas fa-history"></i> Activity</button>
         </div>
 
-        <!-- Filter Tabs -->
-        <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;">
-            <button class="filter-tab active" onclick="filterProducts('all')" style="padding: 0.6rem 1.5rem; background: var(--primary); border: 1px solid var(--primary); color: var(--secondary); border-radius: 30px; cursor: pointer; font-family: 'Inter', sans-serif;">All</button>
-            <button class="filter-tab" onclick="filterProducts('electronics')" style="padding: 0.6rem 1.5rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 30px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s;">Electronics</button>
-            <button class="filter-tab" onclick="filterProducts('fashion')" style="padding: 0.6rem 1.5rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 30px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s;">Fashion</button>
-            <button class="filter-tab" onclick="filterProducts('home')" style="padding: 0.6rem 1.5rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 30px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s;">Home</button>
-            <button class="filter-tab" onclick="filterProducts('sports')" style="padding: 0.6rem 1.5rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 30px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s;">Sports</button>
+        <div class="admin-content active" id="admin-tab-products">
+            <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;"><i class="fas fa-plus-circle" style="color: var(--primary);"></i> Add New Product</h3>
+                <form id="addProductForm" onsubmit="return false;">
+                    <div class="form-row">
+                        <div class="form-group"><label>Name</label><input type="text" id="prodName" required></div>
+                        <div class="form-group"><label>Category</label><select id="prodCategory" required><option value="">Select...</option><option value="electronics">Electronics</option><option value="fashion">Fashion</option><option value="home">Home</option><option value="sports">Sports</option></select></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Price</label><input type="number" id="prodPrice" step="0.01" required></div>
+                        <div class="form-group"><label>Original Price</label><input type="number" id="prodOriginalPrice" step="0.01"></div>
+                    </div>
+                    <div class="form-group"><label>Image URL</label><input type="url" id="prodImage" placeholder="https://..."></div>
+                    <div class="form-group"><label>Description</label><textarea id="prodDescription" rows="3"></textarea></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Stock</label><input type="number" id="prodStock" value="10"></div>
+                        <div class="form-group"><label>Badge</label><select id="prodBadge"><option value="">None</option><option value="new">New</option><option value="sale">Sale</option><option value="hot">Hot</option></select></div>
+                    </div>
+                    <button type="submit" class="btn" onclick="addProduct()" style="margin-top: 0.5rem;"><i class="fas fa-plus"></i> Add Product</button>
+                </form>
+            </div>
+            <h3 style="margin-bottom: 1rem; font-family: 'Inter', sans-serif;">Product List</h3>
+            <div id="adminProductList"></div>
         </div>
 
-        <!-- Products Grid -->
-        <div id="productsGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;"></div>
-    </section>
+        <div class="admin-content" id="admin-tab-users">
+            <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;"><i class="fas fa-user-plus" style="color: var(--primary);"></i> Create User Account</h3>
+                <form id="createUserForm" onsubmit="return false;">
+                    <div class="form-row">
+                        <div class="form-group"><label>Email</label><input type="email" id="newUserEmail" required></div>
+                        <div class="form-group"><label>Full Name</label><input type="text" id="newUserName" required></div>
+                    </div>
+                    <div class="form-group"><label>Password</label><input type="text" id="newUserPassword" required placeholder="Set temporary password"></div>
+                    <button type="submit" class="btn" onclick="createUser()" style="margin-top: 0.5rem;"><i class="fas fa-user-plus"></i> Create Account</button>
+                </form>
+            </div>
+            <h3 style="margin-bottom: 1rem; font-family: 'Inter', sans-serif;">Registered Users</h3>
+            <div id="adminUsersList"></div>
+        </div>
 
-    <!-- Toast Container -->
+        <div class="admin-content" id="admin-tab-orders">
+            <h3 style="margin-bottom: 1rem; font-family: 'Inter', sans-serif;">All Orders</h3>
+            <div id="adminOrdersList"></div>
+        </div>
+
+        <div class="admin-content" id="admin-tab-logs">
+            <h3 style="margin-bottom: 1rem; font-family: 'Inter', sans-serif;">Activity Log</h3>
+            <div id="adminLogsList"></div>
+        </div>
+
+        <button class="btn btn-outline btn-sm" onclick="showHome()" style="margin-top: 2rem;"><i class="fas fa-arrow-left"></i> Back to Store</button>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header"><h3><i class="fas fa-shopping-bag"></i> Your Cart</h3><button class="icon-btn" onclick="toggleCart()"><i class="fas fa-times"></i></button></div>
+        <div class="cart-items" id="cartItems"><p style="text-align: center; color: var(--text-muted); padding: 3rem;"><i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.3; display: block; margin-bottom: 1rem;"></i>Your cart is empty</p></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total:</span><span id="cartTotal">$0.00</span></div>
+            <button class="btn btn-block" onclick="goToCheckout()"><i class="fas fa-credit-card"></i> Checkout</button>
+        </div>
+    </div>
+
+    <!-- PIN MODAL -->
+    <div id="pinModal" class="auth-modal">
+        <div class="auth-box" style="max-width: 350px;">
+            <div class="brand"><i class="fas fa-lock"></i> Admin Access</div>
+            <p class="subtitle">Enter PIN to access admin options</p>
+            <div id="pinError" class="auth-error"></div>
+            <form id="pinForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label><i class="fas fa-key" style="color: var(--primary);"></i> PIN Code</label>
+                    <input type="password" id="pinInput" required placeholder="•••••••" maxlength="10" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;">
+                </div>
+                <button type="submit" class="btn btn-block" onclick="verifyPin()"><i class="fas fa-unlock"></i> Unlock</button>
+            </form>
+            <div class="security-badge"><i class="fas fa-shield-alt"></i><span>Admin menu only</span></div>
+            <button class="cancel-btn" onclick="closePinModal()" style="margin-top: 1rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; text-decoration: underline;">Cancel</button>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal" class="auth-modal" style="display: none;">
+        <div class="auth-box" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 4rem; color: var(--success); margin-bottom: 1rem;"><i class="fas fa-check-circle"></i></div>
+            <div class="brand" style="color: var(--success);">Order Placed!</div>
+            <p class="subtitle">Thank you for your purchase. You will receive a confirmation email shortly.</p>
+            <div id="orderDetails" style="background: var(--card-bg); padding: 1rem; border-radius: 8px; margin: 1.5rem 0; border: 1px solid var(--border);"></div>
+            <button class="btn btn-block" onclick="closeSuccessAndGoHome()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- TOAST -->
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
         // ============================================================
-        // CONFIGURATION
+        // DATA
         // ============================================================
-        const CONFIG = {
-            PIN: "1742026",
-            PIN_KEY: "elif_menu_verified",
-            PIN_EXPIRY: 30 * 60 * 1000, // 30 minutes
-            MAX_ATTEMPTS: 5,
-            LOCKOUT_DURATION: 5 * 60 * 1000 // 5 minutes
-        };
-
-        // ============================================================
-        // STATE
-        // ============================================================
-        let attemptCount = parseInt(localStorage.getItem('elif_attempts') || '0');
-
-        // ============================================================
-        // PIN VERIFICATION
-        // ============================================================
-        function isPinVerified() {
-            const stored = localStorage.getItem(CONFIG.PIN_KEY);
-            if (!stored) return false;
-            try {
-                const data = JSON.parse(stored);
-                if (Date.now() - data.timestamp > CONFIG.PIN_EXPIRY) {
-                    localStorage.removeItem(CONFIG.PIN_KEY);
-                    return false;
-                }
-                return true;
-            } catch (e) {
-                localStorage.removeItem(CONFIG.PIN_KEY);
-                return false;
-            }
-        }
-
-        function setPinVerified() {
-            localStorage.setItem(CONFIG.PIN_KEY, JSON.stringify({ verified: true, timestamp: Date.now() }));
-        }
-
-        function clearPinVerified() {
-            localStorage.removeItem(CONFIG.PIN_KEY);
-            localStorage.removeItem('elif_attempts');
-            attemptCount = 0;
-        }
-
-        function isLockedOut() {
-            const lockout = localStorage.getItem('elif_lockout');
-            if (!lockout) return false;
-            const lockoutTime = parseInt(lockout);
-            if (Date.now() - lockoutTime > CONFIG.LOCKOUT_DURATION) {
-                localStorage.removeItem('elif_lockout');
-                localStorage.removeItem('elif_attempts');
-                attemptCount = 0;
-                return false;
-            }
-            return true;
-        }
-
-        function setLockout() {
-            localStorage.setItem('elif_lockout', Date.now().toString());
-        }
-
-        // ============================================================
-        // PIN MODAL
-        // ============================================================
-        function openPinModal() {
-            document.getElementById('pinModal').classList.add('active');
-            document.getElementById('pinError').classList.remove('show');
-            document.getElementById('pinAttempts').style.display = attemptCount > 0 ? 'block' : 'none';
-            document.getElementById('attemptsCount').textContent = CONFIG.MAX_ATTEMPTS - attemptCount;
-            document.getElementById('pinInput').value = '';
-            setTimeout(() => document.getElementById('pinInput').focus(), 100);
-        }
-
-        function closePinModal() {
-            document.getElementById('pinModal').classList.remove('active');
-        }
-
-        document.getElementById('pinForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            verifyPin();
-        });
-
-        document.getElementById('pinInput').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/\D/g, '');
-        });
-
-        function verifyPin() {
-            if (isLockedOut()) {
-                showPinError('Too many attempts. Please try again in 5 minutes.');
-                return;
-            }
-
-            const pin = document.getElementById('pinInput').value.trim();
-            if (!pin) {
-                showPinError('Please enter the PIN code');
-                return;
-            }
-
-            if (pin === CONFIG.PIN) {
-                setPinVerified();
-                closePinModal();
-                showToast('Access granted! Menu unlocked.', 'success');
-                setTimeout(() => openMenu(), 300);
-            } else {
-                attemptCount++;
-                localStorage.setItem('elif_attempts', attemptCount.toString());
-                const remaining = CONFIG.MAX_ATTEMPTS - attemptCount;
-
-                if (attemptCount >= CONFIG.MAX_ATTEMPTS) {
-                    setLockout();
-                    showPinError('Too many failed attempts. Locked for 5 minutes.');
-                    document.getElementById('pinSubmit').disabled = true;
-                } else {
-                    showPinError(`Invalid PIN. ${remaining} attempts remaining.`);
-                    document.getElementById('pinAttempts').style.display = 'block';
-                    document.getElementById('attemptsCount').textContent = remaining;
-                    document.getElementById('pinBox').classList.add('shake');
-                    setTimeout(() => document.getElementById('pinBox').classList.remove('shake'), 500);
-                    document.getElementById('pinInput').value = '';
-                    document.getElementById('pinInput').focus();
-                }
-            }
-        }
-
-        function showPinError(message) {
-            const errorDiv = document.getElementById('pinError');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
-        }
-
-        // ============================================================
-        // MENU
-        // ============================================================
-        function handleMenuClick() {
-            if (isPinVerified()) {
-                toggleMenu();
-            } else {
-                openPinModal();
-            }
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById('dropdownMenu');
-            menu.classList.toggle('active');
-            document.getElementById('menuTrigger').classList.toggle('active');
-
-            if (menu.classList.contains('active')) {
-                setTimeout(() => {
-                    document.addEventListener('click', closeMenuOutside);
-                }, 100);
-            }
-        }
-
-        function openMenu() {
-            document.getElementById('dropdownMenu').classList.add('active');
-            document.getElementById('menuTrigger').classList.add('active');
-            setTimeout(() => {
-                document.addEventListener('click', closeMenuOutside);
-            }, 100);
-        }
-
-        function closeMenuOutside(e) {
-            const menu = document.getElementById('dropdownMenu');
-            const trigger = document.getElementById('menuTrigger');
-            if (!menu.contains(e.target) && !trigger.contains(e.target)) {
-                menu.classList.remove('active');
-                trigger.classList.remove('active');
-                document.removeEventListener('click', closeMenuOutside);
-            }
-        }
-
-        function menuAction(action) {
-            document.getElementById('dropdownMenu').classList.remove('active');
-            document.getElementById('menuTrigger').classList.remove('active');
-
-            switch(action) {
-                case 'login':
-                    showToast('Login - implement your login logic here', 'info');
-                    break;
-                case 'admin':
-                    showToast('Admin Panel - implement your admin logic here', 'info');
-                    break;
-                case 'edit':
-                    showToast('Edit Website - implement your edit logic here', 'info');
-                    break;
-                case 'logout':
-                    clearPinVerified();
-                    showToast('Logged out successfully', 'success');
-                    break;
-            }
-        }
-
-        // ============================================================
-        // TOAST
-        // ============================================================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            const colors = { success: '#4ade80', error: '#f87171', info: '#60a5fa', warning: '#fbbf24' };
-            const icons = { success: 'check-circle', error: 'exclamation-circle', info: 'info-circle', warning: 'exclamation-triangle' };
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas fa-${icons[type]}"></i> ${message}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // ============================================================
-        // CART (placeholder)
-        // ============================================================
-        function toggleCart() {
-            showToast('Cart functionality - implement as needed', 'info');
-        }
-
-        // ============================================================
-        // PRODUCTS - PUBLIC, NO PIN REQUIRED
-        // ============================================================
-        const products = [
-            { id: "1", name: "Premium Wireless Headphones", category: "electronics", price: 299.99, originalPrice: 399.99, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", description: "High-fidelity audio with noise cancellation", badge: "sale" },
-            { id: "2", name: "Luxury Leather Jacket", category: "fashion", price: 459.00, originalPrice: null, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400", description: "Genuine Italian leather craftsmanship", badge: "new" },
-            { id: "3", name: "Minimalist Desk Lamp", category: "home", price: 89.99, originalPrice: 129.99, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400", description: "Adjustable LED with wireless charging base", badge: "hot" },
-            { id: "4", name: "Pro Running Shoes", category: "sports", price: 159.99, originalPrice: null, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", description: "Carbon fiber plate for maximum performance", badge: "new" },
-            { id: "5", name: "Smart Watch Series X", category: "electronics", price: 399.00, originalPrice: 449.00, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", description: "Health monitoring and GPS tracking", badge: "sale" },
-            { id: "6", name: "Designer Sunglasses", category: "fashion", price: 189.99, originalPrice: null, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400", description: "UV400 polarized lenses", badge: "" },
-            { id: "7", name: "Ceramic Vase Set", category: "home", price: 79.99, originalPrice: 99.99, image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400", description: "Handcrafted artisan ceramics", badge: "sale" },
-            { id: "8", name: "Yoga Mat Premium", category: "sports", price: 68.00, originalPrice: null, image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400", description: "Non-slip natural rubber", badge: "hot" }
+        let products = [
+            { id: "1", name: "Premium Wireless Headphones", category: "electronics", price: 299.99, originalPrice: 399.99, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600", description: "Experience crystal-clear audio with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and plush memory foam ear cushions for all-day comfort. Bluetooth 5.3 connectivity ensures seamless pairing with all your devices.", badge: "sale", features: ["Active Noise Cancellation", "40hr Battery", "Bluetooth 5.3", "Memory Foam Cushions"], stock: 15 },
+            { id: "2", name: "Luxury Leather Jacket", category: "fashion", price: 459.00, originalPrice: null, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600", description: "Handcrafted from genuine Italian leather, this jacket combines timeless style with modern functionality. Features a tailored fit, satin lining, and multiple interior pockets. Each piece is unique with natural leather grain patterns.", badge: "new", features: ["Genuine Italian Leather", "Tailored Fit", "Satin Lining", "Interior Pockets"], stock: 8 },
+            { id: "3", name: "Minimalist Desk Lamp", category: "home", price: 89.99, originalPrice: 129.99, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600", description: "Elevate your workspace with this award-winning minimalist desk lamp. Features adjustable color temperature (2700K-6500K), wireless charging base for your phone, and touch-sensitive controls. Energy-efficient LED with 50,000-hour lifespan.", badge: "hot", features: ["Wireless Charging Base", "Color Temperature Adjust", "Touch Controls", "50,000hr LED"], stock: 23 },
+            { id: "4", name: "Pro Running Shoes", category: "sports", price: 159.99, originalPrice: null, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600", description: "Engineered for performance with a carbon fiber plate and responsive foam cushioning. The breathable mesh upper keeps your feet cool while the reinforced heel provides stability. Perfect for marathon training or daily runs.", badge: "new", features: ["Carbon Fiber Plate", "Responsive Foam", "Breathable Mesh", "Reflective Details"], stock: 30 },
+            { id: "5", name: "Smart Watch Series X", category: "electronics", price: 399.00, originalPrice: 449.00, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600", description: "The ultimate health companion on your wrist. Tracks heart rate, blood oxygen, sleep stages, and stress levels. Built-in GPS for accurate workout tracking. Water-resistant to 50 meters with 7-day battery life.", badge: "sale", features: ["Heart Rate Monitor", "Blood Oxygen", "Sleep Tracking", "Built-in GPS"], stock: 12 },
+            { id: "6", name: "Designer Sunglasses", category: "fashion", price: 189.99, originalPrice: null, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600", description: "Italian-made frames with polarized UV400 lenses. Hand-polished acetate construction with gold-plated hinges. Includes premium leather case and cleaning cloth. Available in multiple lens colors.", badge: "", features: ["UV400 Polarized", "Italian Acetate", "Gold-Plated Hinges", "Leather Case"], stock: 20 },
+            { id: "7", name: "Ceramic Vase Set", category: "home", price: 79.99, originalPrice: 99.99, image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=600", description: "Set of 3 handcrafted ceramic vases by artisan potters. Each piece is wheel-thrown and glazed with unique reactive finishes. Perfect for fresh flowers or as standalone decorative pieces. Food-safe and dishwasher-friendly.", badge: "sale", features: ["Handcrafted", "Reactive Glaze", "Set of 3", "Food Safe"], stock: 18 },
+            { id: "8", name: "Yoga Mat Premium", category: "sports", price: 68.00, originalPrice: null, image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600", description: "Natural rubber yoga mat with polyurethane top layer for superior grip even when wet. 5mm cushioning protects joints during practice. Alignment markers help perfect your poses. Eco-friendly and biodegradable.", badge: "hot", features: ["Natural Rubber", "Superior Grip", "5mm Cushioning", "Eco-Friendly"], stock: 25 }
         ];
 
+        let cart = JSON.parse(localStorage.getItem('elif_cart') || '[]');
+        let users = JSON.parse(localStorage.getItem('elif_users') || '[]');
+        let orders = JSON.parse(localStorage.getItem('elif_orders') || '[]');
+        let logs = JSON.parse(localStorage.getItem('elif_logs') || '[]');
+        let currentProduct = null;
+        let currentUser = JSON.parse(localStorage.getItem('elif_current_user') || 'null');
         let currentFilter = 'all';
 
+        // ============================================================
+        // PAGE NAVIGATION
+        // ============================================================
+        function hideAllPages() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('detailPage').classList.remove('active');
+            document.getElementById('checkoutPage').classList.remove('active');
+            document.getElementById('loginPage').classList.remove('active');
+            document.getElementById('registerPage').classList.remove('active');
+            document.getElementById('adminPage').classList.remove('active');
+        }
+
+        function showHome() {
+            hideAllPages();
+            document.getElementById('homePage').style.display = 'block';
+            window.scrollTo(0, 0);
+            renderProducts();
+            updateCartUI();
+        }
+
+        function showProductDetail(productId) {
+            currentProduct = products.find(p => p.id === productId);
+            if (!currentProduct) return;
+
+            hideAllPages();
+            document.getElementById('detailPage').classList.add('active');
+
+            document.getElementById('detailImage').src = currentProduct.image;
+            document.getElementById('detailImage').alt = currentProduct.name;
+            document.getElementById('detailCategory').textContent = currentProduct.category;
+            document.getElementById('detailName').textContent = currentProduct.name;
+            document.getElementById('detailPrice').textContent = '$' + currentProduct.price.toFixed(2);
+            document.getElementById('detailOriginalPrice').textContent = currentProduct.originalPrice ? '$' + currentProduct.originalPrice.toFixed(2) : '';
+            document.getElementById('detailStock').innerHTML = '<i class="fas fa-check-circle"></i> ' + currentProduct.stock + ' in stock';
+            document.getElementById('detailDescription').textContent = currentProduct.description;
+            document.getElementById('detailFeatures').innerHTML = currentProduct.features.map(f => '<li><i class="fas fa-check"></i> ' + f + '</li>').join('');
+
+            window.scrollTo(0, 0);
+        }
+
+        function showCheckout() {
+            hideAllPages();
+            document.getElementById('checkoutPage').classList.add('active');
+            renderCheckoutSummary();
+            window.scrollTo(0, 0);
+        }
+
+        function showLogin() {
+            hideAllPages();
+            document.getElementById('loginPage').classList.add('active');
+            toggleMenu();
+        }
+
+        function showRegister() {
+            hideAllPages();
+            document.getElementById('registerPage').classList.add('active');
+            toggleMenu();
+        }
+
+        function showAdmin() {
+            hideAllPages();
+            document.getElementById('adminPage').classList.add('active');
+            loadAdminProducts();
+            loadAdminUsers();
+            loadAdminOrders();
+            loadAdminLogs();
+        }
+
+        function showContact() {
+            showToast('Contact page - Add your contact info here', 'info');
+        }
+
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // PRODUCTS
+        // ============================================================
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            if (!grid) return;
-
             const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
-
             grid.innerHTML = filtered.map(p => `
-                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.3s; position: relative;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--primary)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'" onmouseout="this.style.transform=''; this.style.borderColor='var(--border)'; this.style.boxShadow=''">
-                    <div style="position: relative; height: 280px; overflow: hidden;">
-                        <img src="${p.image || 'https://via.placeholder.com/300x400'}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
-                        ${p.badge ? `<span style="position: absolute; top: 1rem; left: 1rem; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background: ${p.badge === 'sale' ? 'var(--danger)' : p.badge === 'new' ? 'var(--success)' : 'var(--warning)'}; color: ${p.badge === 'new' ? 'var(--secondary)' : 'white'};">${p.badge}</span>` : ''}
-                        <button style="position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='var(--danger)'; this.style.color='white'; this.style.borderColor='var(--danger)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.color='var(--text)'; this.style.borderColor='var(--border)'"><i class="fas fa-heart"></i></button>
+                <div class="product-card" onclick="showProductDetail('${p.id}')">
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${p.name}">
+                        ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : ''}
                     </div>
-                    <div style="padding: 1.5rem;">
-                        <div style="font-size: 0.8rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">${p.category}</div>
-                        <div style="font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">${p.name}</div>
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <span style="font-size: 1.3rem; font-weight: 700; color: var(--primary);">$${p.price.toFixed(2)}</span>
-                            ${p.originalPrice ? `<span style="font-size: 1rem; color: var(--text-muted); text-decoration: line-through;">$${p.originalPrice.toFixed(2)}</span>` : ''}
+                    <div class="product-info">
+                        <div class="product-category">${p.category}</div>
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">
+                            <span class="price-current">$${p.price.toFixed(2)}</span>
+                            ${p.originalPrice ? `<span class="price-original">$${p.originalPrice.toFixed(2)}</span>` : ''}
                         </div>
-                        <button onclick="addToCart(${p.id})" style="width: 100%; padding: 0.8rem; background: var(--primary); color: var(--secondary); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.background='var(--primary-dark)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--primary)'; this.style.transform=''"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
                     </div>
                 </div>
             `).join('');
@@ -604,35 +556,389 @@
 
         function filterProducts(category) {
             currentFilter = category;
-            document.querySelectorAll('.filter-tab').forEach(t => {
-                t.style.background = 'transparent';
-                t.style.borderColor = 'var(--border)';
-                t.style.color = 'var(--text)';
+            ['all', 'electronics', 'fashion', 'home', 'sports'].forEach(c => {
+                const btn = document.getElementById('btn-' + c);
+                if (c === category) { btn.style.background = 'var(--primary)'; btn.style.color = 'var(--secondary)'; }
+                else { btn.style.background = 'transparent'; btn.style.color = 'var(--primary)'; }
             });
-            event.target.style.background = 'var(--primary)';
-            event.target.style.borderColor = 'var(--primary)';
-            event.target.style.color = 'var(--secondary)';
             renderProducts();
         }
 
-        function addToCart(productId) {
-            const product = products.find(p => p.id == productId);
-            if (product) {
-                showToast(`${product.name} added to cart!`, 'success');
+        // ============================================================
+        // CART
+        // ============================================================
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+            document.getElementById('cartOverlay').classList.toggle('open');
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').textContent = count;
+            const itemsContainer = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 3rem;"><i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.3; display: block; margin-bottom: 1rem;"></i>Your cart is empty</p>';
+            } else {
+                itemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)}</p>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="event.stopPropagation(); updateQty('${item.id}', -1)">-</button>
+                                <span>${item.qty}</span>
+                                <button class="qty-btn" onclick="event.stopPropagation(); updateQty('${item.id}', 1)">+</button>
+                                <button class="remove-item" onclick="event.stopPropagation(); removeFromCart('${item.id}')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+            localStorage.setItem('elif_cart', JSON.stringify(cart));
+        }
+
+        function addToCartFromDetail() {
+            if (!currentProduct) return;
+            const existing = cart.find(item => item.id === currentProduct.id);
+            if (existing) existing.qty++;
+            else cart.push({...currentProduct, qty: 1});
+            updateCartUI();
+            showToast(currentProduct.name + ' added to cart!', 'success');
+            toggleCart();
+        }
+
+        function buyNowFromDetail() {
+            addToCartFromDetail();
+            setTimeout(() => showCheckout(), 300);
+        }
+
+        function updateQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) removeFromCart(id);
+            else updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        }
+
+        function goToCheckout() {
+            if (cart.length === 0) { showToast('Your cart is empty!', 'error'); return; }
+            toggleCart();
+            showCheckout();
+        }
+
+        // ============================================================
+        // CHECKOUT
+        // ============================================================
+        function renderCheckoutSummary() {
+            const container = document.getElementById('checkoutItems');
+            container.innerHTML = cart.map(item => `
+                <div class="order-item">
+                    <span>${item.name} x${item.qty}</span>
+                    <span style="font-weight: 600;">$${(item.price * item.qty).toFixed(2)}</span>
+                </div>
+            `).join('');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('checkoutTotal').textContent = '$' + total.toFixed(2);
+        }
+
+        function placeOrder() {
+            const form = document.getElementById('checkoutForm');
+            const inputs = form.querySelectorAll('input[required]');
+            let valid = true;
+            inputs.forEach(input => {
+                if (!input.value.trim()) { valid = false; input.style.borderColor = 'var(--danger)'; }
+                else { input.style.borderColor = 'var(--border)'; }
+            });
+            if (!valid) { showToast('Please fill all required fields', 'error'); return; }
+            if (cart.length === 0) { showToast('Your cart is empty!', 'error'); return; }
+
+            const orderNum = 'ELIF-' + Date.now().toString().slice(-8);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            const order = {
+                order_number: orderNum,
+                customer_email: document.getElementById('shipEmail').value,
+                items: [...cart],
+                total: total,
+                shipping: {
+                    name: document.getElementById('shipFirstName').value + ' ' + document.getElementById('shipLastName').value,
+                    address: document.getElementById('shipAddress').value,
+                    city: document.getElementById('shipCity').value,
+                    zip: document.getElementById('shipZip').value
+                },
+                date: new Date().toISOString(),
+                status: 'pending'
+            };
+
+            orders.push(order);
+            localStorage.setItem('elif_orders', JSON.stringify(orders));
+
+            document.getElementById('orderDetails').innerHTML = `
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">Order Number</span>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${orderNum}</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 0.5rem; border-top: 1px solid var(--border);">
+                    <span>Total Paid:</span><span style="font-weight: 700;">$${total.toFixed(2)}</span>
+                </div>
+            `;
+
+            document.getElementById('successModal').style.display = 'flex';
+            cart = [];
+            localStorage.setItem('elif_cart', JSON.stringify(cart));
+            updateCartUI();
+            addLog('Order placed', 'Order: ' + orderNum + ', Total: $' + total.toFixed(2));
+        }
+
+        function closeSuccessAndGoHome() {
+            document.getElementById('successModal').style.display = 'none';
+            showHome();
+        }
+
+        // ============================================================
+        // AUTH
+        // ============================================================
+        function doLogin() {
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+
+            if (email === 'admin@elifmarket.com' && password === 'AdminPass123!') {
+                currentUser = { email: email, name: 'Admin', role: 'admin' };
+                localStorage.setItem('elif_current_user', JSON.stringify(currentUser));
+                showToast('Admin login successful!', 'success');
+                showHome();
+                updateUserBadge();
+                return;
+            }
+
+            const user = users.find(u => u.email === email);
+            if (user && user.password === password) {
+                currentUser = user;
+                localStorage.setItem('elif_current_user', JSON.stringify(currentUser));
+                showToast('Welcome back, ' + user.name + '!', 'success');
+                showHome();
+                updateUserBadge();
+            } else {
+                errorDiv.textContent = 'Invalid email or password';
+                errorDiv.classList.add('show');
             }
         }
 
-        // Initialize products on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
+        function doRegister() {
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
+            const name = document.getElementById('regName').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const errorDiv = document.getElementById('regError');
+            const successDiv = document.getElementById('regSuccess');
+
+            if (!email || !name || !password) {
+                errorDiv.textContent = 'All fields are required';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            if (users.find(u => u.email === email)) {
+                errorDiv.textContent = 'Email already registered';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            const user = { email, name, password, created_at: new Date().toISOString(), status: 'active' };
+            users.push(user);
+            localStorage.setItem('elif_users', JSON.stringify(users));
+
+            successDiv.textContent = 'Account created! You can now login.';
+            successDiv.classList.add('show');
+            errorDiv.classList.remove('show');
+            document.getElementById('registerForm').reset();
+            addLog('User registered', 'New user: ' + email);
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('elif_current_user');
+            showToast('Logged out successfully', 'success');
+            updateUserBadge();
+            toggleMenu();
+            showHome();
+        }
+
+        function updateUserBadge() {
+            const badge = document.getElementById('userBadge');
+            if (currentUser) {
+                badge.style.display = 'flex';
+                badge.className = currentUser.role === 'admin' ? 'admin-badge' : 'user-badge';
+                badge.innerHTML = '<i class="fas fa-' + (currentUser.role === 'admin' ? 'shield-alt' : 'user') + '"></i> ' + currentUser.email;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // ============================================================
+        // ADMIN
+        // ============================================================
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('admin-tab-' + tab).classList.add('active');
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tabbtn-' + tab).classList.add('active');
+        }
+
+        function loadAdminProducts() {
+            const container = document.getElementById('adminProductList');
+            container.innerHTML = '<table class="data-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody>' + 
+                products.map(p => `<tr><td><img src="${p.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;"></td><td>${p.name}</td><td>${p.category}</td><td>$${p.price.toFixed(2)}</td><td>${p.stock}</td><td><button onclick="deleteProduct('${p.id}')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>`).join('') + 
+                '</tbody></table>';
+        }
+
+        function addProduct() {
+            const product = {
+                id: Date.now().toString(),
+                name: document.getElementById('prodName').value,
+                category: document.getElementById('prodCategory').value,
+                price: parseFloat(document.getElementById('prodPrice').value),
+                originalPrice: parseFloat(document.getElementById('prodOriginalPrice').value) || null,
+                image: document.getElementById('prodImage').value || 'https://via.placeholder.com/600',
+                description: document.getElementById('prodDescription').value,
+                stock: parseInt(document.getElementById('prodStock').value) || 10,
+                badge: document.getElementById('prodBadge').value,
+                features: ["Premium Quality", "Warranty Included"]
+            };
+            products.push(product);
+            showToast('Product added!', 'success');
+            document.getElementById('addProductForm').reset();
+            loadAdminProducts();
+            addLog('Product added', product.name);
+        }
+
+        function deleteProduct(id) {
+            if (!confirm('Delete this product?')) return;
+            products = products.filter(p => p.id !== id);
+            loadAdminProducts();
+            showToast('Product deleted!', 'success');
+            addLog('Product deleted', 'ID: ' + id);
+        }
+
+        function loadAdminUsers() {
+            const container = document.getElementById('adminUsersList');
+            if (users.length === 0) { container.innerHTML = '<p style="color: var(--text-muted);">No users registered</p>'; return; }
+            container.innerHTML = '<table class="data-table"><thead><tr><th>Email</th><th>Name</th><th>Created</th><th>Actions</th></tr></thead><tbody>' + 
+                users.map(u => `<tr><td>${u.email}</td><td>${u.name}</td><td>${new Date(u.created_at).toLocaleDateString()}</td><td><button onclick="deleteUser('${u.email}')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>`).join('') + 
+                '</tbody></table>';
+        }
+
+        function createUser() {
+            const email = document.getElementById('newUserEmail').value.trim().toLowerCase();
+            const name = document.getElementById('newUserName').value.trim();
+            const password = document.getElementById('newUserPassword').value;
+
+            if (!email || !name || !password) {
+                showToast('All fields required', 'error'); return;
+            }
+            if (users.find(u => u.email === email)) {
+                showToast('Email already exists', 'error'); return;
+            }
+
+            users.push({ email, name, password, created_at: new Date().toISOString(), status: 'active' });
+            localStorage.setItem('elif_users', JSON.stringify(users));
+            showToast('User created!', 'success');
+            document.getElementById('createUserForm').reset();
+            loadAdminUsers();
+            addLog('User created by admin', email);
+        }
+
+        function deleteUser(email) {
+            if (!confirm('Delete user ' + email + '?')) return;
+            users = users.filter(u => u.email !== email);
+            localStorage.setItem('elif_users', JSON.stringify(users));
+            loadAdminUsers();
+            showToast('User deleted!', 'success');
+            addLog('User deleted', email);
+        }
+
+        function loadAdminOrders() {
+            const container = document.getElementById('adminOrdersList');
+            if (orders.length === 0) { container.innerHTML = '<p style="color: var(--text-muted);">No orders yet</p>'; return; }
+            container.innerHTML = '<table class="data-table"><thead><tr><th>Order #</th><th>Customer</th><th>Total</th><th>Date</th><th>Status</th></tr></thead><tbody>' + 
+                orders.map(o => `<tr><td>${o.order_number}</td><td>${o.customer_email}</td><td>$${o.total.toFixed(2)}</td><td>${new Date(o.date).toLocaleDateString()}</td><td><span style="color: var(--warning); text-transform: capitalize;">${o.status}</span></td></tr>`).join('') + 
+                '</tbody></table>';
+        }
+
+        function loadAdminLogs() {
+            const container = document.getElementById('adminLogsList');
+            if (logs.length === 0) { container.innerHTML = '<p style="color: var(--text-muted);">No activity recorded</p>'; return; }
+            container.innerHTML = logs.slice(0, 50).map(l => `<div style="padding: 0.8rem; border-bottom: 1px solid var(--border); font-size: 0.85rem;"><span style="color: var(--primary);">${new Date(l.timestamp).toLocaleString()}</span> | <span style="color: var(--text-muted);">${l.user}</span> | ${l.action} ${l.details ? '<br><small style="color: var(--text-muted);">' + l.details + '</small>' : ''}</div>`).join('');
+        }
+
+        function addLog(action, details) {
+            logs.unshift({ timestamp: new Date().toISOString(), user: currentUser ? currentUser.email : 'guest', action, details });
+            localStorage.setItem('elif_logs', JSON.stringify(logs));
+        }
+
+        // ============================================================
+        // MENU & PIN
+        // ============================================================
+        function toggleMenu() {
+            document.getElementById('dropdownMenu').classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('dropdownMenu');
+            const trigger = document.getElementById('menuTrigger');
+            if (menu && trigger && !menu.contains(e.target) && !trigger.contains(e.target)) menu.classList.remove('active');
         });
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+        function showPinModal() {
+            document.getElementById('pinModal').classList.add('active');
+            document.getElementById('pinInput').focus();
+            toggleMenu();
+        }
+
+        function closePinModal() {
+            document.getElementById('pinModal').classList.remove('active');
+        }
+
+        function verifyPin() {
+            const pin = document.getElementById('pinInput').value;
+            if (pin === '1742026') {
                 closePinModal();
-                document.getElementById('dropdownMenu').classList.remove('active');
+                showToast('Admin access granted!', 'success');
+                showAdmin();
+            } else {
+                document.getElementById('pinError').textContent = 'Invalid PIN';
+                document.getElementById('pinError').classList.add('show');
             }
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, type) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            const icons = { success: 'check-circle', error: 'exclamation-circle', info: 'info-circle' };
+            toast.innerHTML = '<i class="fas fa-' + (icons[type] || 'info-circle') + '"></i> ' + message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserBadge();
+            showHome();
         });
     </script>
 </body>
