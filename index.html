@@ -399,7 +399,11 @@
                         <div class="form-group"><label>Price</label><input type="number" id="prodPrice" step="0.01" required></div>
                         <div class="form-group"><label>Original Price</label><input type="number" id="prodOriginalPrice" step="0.01"></div>
                     </div>
-                    <div class="form-group"><label>Image URL</label><input type="url" id="prodImage" placeholder="https://..."></div>
+                    <div class="form-group">
+                    <label><i class="fas fa-image" style="color: var(--primary);"></i> Product Image</label>
+                    <input type="file" id="prodImage" accept="image/*" onchange="handleImageUpload(event)">
+                    <img id="imagePreview" style="display: none; max-width: 200px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                </div>
                     <div class="form-group"><label>Description</label><textarea id="prodDescription" rows="3"></textarea></div>
                     <div class="form-row">
                         <div class="form-group"><label>Stock</label><input type="number" id="prodStock" value="10"></div>
@@ -596,7 +600,7 @@
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card" onclick="showProductDetail('${p.id}')">
                     <div class="product-image">
-                        <img src="${p.image}" alt="${p.name}">
+                        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/600'">
                         ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : ''}
                     </div>
                     <div class="product-info">
@@ -994,18 +998,25 @@
         function loadAdminProducts() {
             const container = document.getElementById('adminProductList');
             container.innerHTML = '<table class="data-table"><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody>' + 
-                products.map(p => `<tr><td><img src="${p.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;"></td><td>${p.name}</td><td>${p.category}</td><td>$${p.price.toFixed(2)}</td><td>${p.stock}</td><td><button onclick="deleteProduct('${p.id}')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>`).join('') + 
+                products.map(p => `<tr><td><img src="${p.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);" onerror="this.src='https://via.placeholder.com/50'"></td><td>${p.name}</td><td>${p.category}</td><td>$${p.price.toFixed(2)}</td><td>${p.stock}</td><td><button onclick="deleteProduct('${p.id}')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td></tr>`).join('') + 
                 '</tbody></table>';
         }
 
         function addProduct() {
+            const imagePreview = document.getElementById('imagePreview');
+            let imageUrl = 'https://via.placeholder.com/600';
+
+            if (imagePreview.src && imagePreview.style.display !== 'none' && imagePreview.src !== window.location.href) {
+                imageUrl = imagePreview.src;
+            }
+
             const product = {
                 id: Date.now().toString(),
                 name: document.getElementById('prodName').value,
                 category: document.getElementById('prodCategory').value,
                 price: parseFloat(document.getElementById('prodPrice').value),
                 originalPrice: parseFloat(document.getElementById('prodOriginalPrice').value) || null,
-                image: document.getElementById('prodImage').value || 'https://via.placeholder.com/600',
+                image: imageUrl,
                 description: document.getElementById('prodDescription').value,
                 stock: parseInt(document.getElementById('prodStock').value) || 10,
                 badge: document.getElementById('prodBadge').value,
@@ -1014,6 +1025,8 @@
             products.push(product);
             showToast('Product added!', 'success');
             document.getElementById('addProductForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('imagePreview').src = '';
             loadAdminProducts();
             addLog('Product added', product.name);
         }
@@ -1131,9 +1144,64 @@
         }
 
         // ============================================================
+        // IMAGE UPLOAD & COMPRESSION
+        // ============================================================
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showToast('Please select an image file', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('Image too large. Max 10MB', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 800;
+
+                    if (width > height && width > maxDim) {
+                        height = (height * maxDim) / width;
+                        width = maxDim;
+                    } else if (height > maxDim) {
+                        width = (width * maxDim) / height;
+                        height = maxDim;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressed = canvas.toDataURL('image/jpeg', 0.85);
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = compressed;
+                    preview.style.display = 'block';
+
+                    const originalMB = (file.size / 1024 / 1024).toFixed(2);
+                    const compressedKB = (compressed.length / 1024).toFixed(1);
+                    showToast('Image compressed: ' + originalMB + 'MB → ' + compressedKB + 'KB', 'success');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ============================================================
         // INIT
         // ============================================================
-document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             updateUserBadge();
             showHome();
         });
